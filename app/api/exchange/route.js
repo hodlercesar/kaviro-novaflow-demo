@@ -1,9 +1,9 @@
+import { auth } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
 
-const COOKIE_NAME = 'novaflow_demo_session';
-
-export async function GET(request) {
-  if (request.cookies.get(COOKIE_NAME)?.value !== 'active') {
+export async function GET() {
+  const { userId } = await auth();
+  if (!userId) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
