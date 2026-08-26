@@ -2,8 +2,8 @@
 
 NovaFlow is a conceptual B2B revenue-operations application created by **KAVIRO Studio** as a public engineering demonstration.
 
-**Live demo:** https://kaviro-novaflow-demo.vercel.app  
-**Interactive workspace:** https://kaviro-novaflow-demo.vercel.app/demo
+**Current production landing:** https://kaviro-novaflow-demo.vercel.app  
+**Interactive workspace source:** `/demo` in this repository
 
 > NovaFlow is a fictional product. It is not presented as client work and contains no real customer data or fabricated results.
 
@@ -37,9 +37,13 @@ The credentials are intentionally public because this is a portfolio demo, not a
 
 ## Persistence status
 
-A production database is **not connected yet**. Pipeline data in the current public demo is seeded in application state and is intentionally not described as persistent storage.
+A production database is **not connected yet**. Pipeline data in the current source is seeded in application state and is intentionally not described as persistent storage.
 
 The next architecture milestone is a real Postgres persistence layer with user-scoped records. This repository will not claim database integration until that service is actually provisioned and connected.
+
+## Deployment status
+
+The original landing is currently deployed on Vercel. The new `/demo` application code has been committed to GitHub, but the existing Vercel project is not automatically linked to the repository, so the upgraded workspace still requires a fresh production deployment before its public URL is advertised.
 
 ## Stack
 
