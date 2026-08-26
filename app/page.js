@@ -1,15 +1,15 @@
 const Arrow = () => <span aria-hidden="true">↗</span>;
 
 const features = [
-  ['01', 'Pipeline clarity', 'See every opportunity, blocker and next action in one focused revenue workspace.'],
-  ['02', 'Smart automations', 'Remove repetitive handoffs with lightweight workflows your team can understand and control.'],
-  ['03', 'Decision-ready reporting', 'Turn activity into useful signals with dashboards built around the questions leaders actually ask.']
+  ['01', 'Pipeline clarity', 'Filter, search, sort and advance opportunities in a focused revenue workspace.'],
+  ['02', 'Business rules', 'Risk and weighted forecast recalculate from inactivity, stage and win probability.'],
+  ['03', 'Service integration', 'A server-side Next.js route fetches external market data and handles provider failures.']
 ];
 
 const metrics = [
-  ['31%', 'faster handoffs'],
-  ['2.4×', 'clearer pipeline'],
-  ['8.2h', 'saved / rep / month']
+  ['5', 'interactive opportunities'],
+  ['4', 'pipeline stages modeled'],
+  ['1', 'external API integration']
 ];
 
 export default function Home() {
@@ -18,17 +18,17 @@ export default function Home() {
       <header className="nav shell">
         <a className="brand" href="#top" aria-label="NovaFlow home"><span className="brandMark">N</span>NovaFlow</a>
         <nav aria-label="Primary navigation">
-          <a href="#product">Product</a><a href="#proof">Results</a><a href="#process">How it works</a>
+          <a href="#product">Product</a><a href="#proof">Architecture</a><a href="#process">How it works</a>
         </nav>
-        <a className="navCta" href="#contact">Book a walkthrough <Arrow /></a>
+        <a className="navCta" href="/demo">Open live app <Arrow /></a>
       </header>
 
       <section className="hero shell" id="top">
-        <div className="eyebrow"><span></span> Revenue operations without the noise</div>
+        <div className="eyebrow"><span></span> KAVIRO concept application · SaaS operations</div>
         <h1>Turn scattered sales work into <em>forward motion.</em></h1>
-        <p className="heroCopy">NovaFlow gives growing B2B teams one calm place to manage pipeline, automate handoffs and make revenue decisions with confidence.</p>
-        <div className="heroActions"><a className="btn primary" href="#contact">Start with your workflow <Arrow /></a><a className="btn text" href="#product">Explore the product ↓</a></div>
-        <div className="trustRow"><span>Built for focused teams</span><div></div><strong>Northstar</strong><strong>Atelier</strong><strong>Monarch</strong><strong>Kepler</strong></div>
+        <p className="heroCopy">NovaFlow is a functional B2B SaaS concept built to demonstrate responsive product UI, interactive state, business logic, server routes and external service integration.</p>
+        <div className="heroActions"><a className="btn primary" href="/demo">Explore the live workspace <Arrow /></a><a className="btn text" href="#product">See the build approach ↓</a></div>
+        <div className="trustRow"><span>Technical scope</span><div></div><strong>Next.js</strong><strong>React</strong><strong>Server routes</strong><strong>External API</strong></div>
 
         <div className="dashboardWrap" aria-label="NovaFlow product preview">
           <div className="dashboardGlow"></div>
@@ -36,18 +36,18 @@ export default function Home() {
             <aside className="dashSide">
               <div className="miniLogo">N</div>
               <div className="dashNav active">Overview</div><div className="dashNav">Pipeline</div><div className="dashNav">Automations</div><div className="dashNav">Reports</div>
-              <div className="dashProfile"><span>KM</span><div><b>Kira Miles</b><small>Revenue lead</small></div></div>
+              <div className="dashProfile"><span>KM</span><div><b>Kira Miles</b><small>Demo persona</small></div></div>
             </aside>
             <div className="dashMain">
-              <div className="dashTop"><div><small>MONDAY, 24 AUG</small><h3>Good morning, Kira.</h3></div><button>+ New opportunity</button></div>
+              <div className="dashTop"><div><small>CONCEPT WORKSPACE</small><h3>Pipeline control center</h3></div><button>+ New opportunity</button></div>
               <div className="statGrid">
-                <article><small>OPEN PIPELINE</small><b>$428.6k</b><span className="up">↑ 12.4%</span></article>
-                <article><small>WIN RATE</small><b>34.8%</b><span className="up">↑ 4.1%</span></article>
-                <article><small>AVG. CYCLE</small><b>22 days</b><span>↓ 3 days</span></article>
+                <article><small>OPEN PIPELINE</small><b>$176k</b><span className="up">Live state</span></article>
+                <article><small>WEIGHTED FORECAST</small><b>$101k</b><span className="up">Rule-based</span></article>
+                <article><small>HIGH RISK</small><b>1 deal</b><span>Dynamic scoring</span></article>
               </div>
               <div className="dashLower">
-                <article className="chartCard"><div className="cardHead"><div><small>PIPELINE MOMENTUM</small><h4>Revenue forecast</h4></div><span>Last 6 months⌄</span></div><div className="chart"><span className="bar b1"></span><span className="bar b2"></span><span className="bar b3"></span><span className="bar b4"></span><span className="bar b5"></span><span className="bar b6"></span><i className="chartLine"></i></div><div className="months"><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span></div></article>
-                <article className="activityCard"><div className="cardHead"><div><small>PRIORITY</small><h4>Needs attention</h4></div><b>4</b></div><div className="activity"><span className="dot coral"></span><div><b>Northstar renewal</b><small>No activity in 5 days</small></div><em>$42k</em></div><div className="activity"><span className="dot mint"></span><div><b>Monarch expansion</b><small>Proposal viewed 2h ago</small></div><em>$18k</em></div><div className="activity"><span className="dot sand"></span><div><b>Kepler onboarding</b><small>Handoff waiting</small></div><em>$27k</em></div></article>
+                <article className="chartCard"><div className="cardHead"><div><small>PIPELINE DISTRIBUTION</small><h4>Stage value</h4></div><span>Interactive demo⌄</span></div><div className="chart"><span className="bar b1"></span><span className="bar b2"></span><span className="bar b3"></span><span className="bar b4"></span><span className="bar b5"></span><span className="bar b6"></span><i className="chartLine"></i></div><div className="months"><span>Disc.</span><span>Qual.</span><span>Prop.</span><span>Neg.</span><span>Won</span><span>FX</span></div></article>
+                <article className="activityCard"><div className="cardHead"><div><small>DECISION QUEUE</small><h4>Needs attention</h4></div><b>3</b></div><div className="activity"><span className="dot coral"></span><div><b>Kepler Works</b><small>8 days idle · high risk</small></div><em>$27k</em></div><div className="activity"><span className="dot mint"></span><div><b>Northstar Labs</b><small>Proposal · medium risk</small></div><em>$42k</em></div><div className="activity"><span className="dot sand"></span><div><b>Atelier Cloud</b><small>Qualified · medium risk</small></div><em>$56k</em></div></article>
               </div>
             </div>
           </div>
@@ -55,17 +55,17 @@ export default function Home() {
       </section>
 
       <section className="section shell" id="product">
-        <div className="sectionHead"><div><div className="eyebrow"><span></span> Designed around momentum</div><h2>Less admin. More signal.</h2></div><p>NovaFlow keeps the essentials visible and pushes everything else out of the way, so teams spend less time maintaining systems and more time moving deals forward.</p></div>
-        <div className="featureGrid">{features.map(([n,t,d]) => <article key={n}><span>{n}</span><h3>{t}</h3><p>{d}</p><a href="#contact">See the workflow <Arrow /></a></article>)}</div>
+        <div className="sectionHead"><div><div className="eyebrow"><span></span> More than a landing page</div><h2>A product flow you can actually evaluate.</h2></div><p>The live workspace is designed to expose behavior as well as presentation: state transitions, derived metrics, failure handling, responsive layout and server/client boundaries.</p></div>
+        <div className="featureGrid">{features.map(([n,t,d]) => <article key={n}><span>{n}</span><h3>{t}</h3><p>{d}</p><a href="/demo">Test the workflow <Arrow /></a></article>)}</div>
       </section>
 
-      <section className="darkSection" id="proof"><div className="shell proofGrid"><div><div className="eyebrow light"><span></span> Outcomes over activity</div><h2>Built to make good work easier to repeat.</h2><p>One operating layer for the moments where revenue teams usually lose context, speed or ownership.</p><a className="btn lightBtn" href="#contact">See NovaFlow in action <Arrow /></a></div><div className="metrics">{metrics.map(([v,l]) => <article key={v}><b>{v}</b><span>{l}</span></article>)}</div></div></section>
+      <section className="darkSection" id="proof"><div className="shell proofGrid"><div><div className="eyebrow light"><span></span> Technical evaluation</div><h2>Built so architecture and behavior are visible.</h2><p>The project separates client-side interaction from server-side session and external-service routes, while keeping the UI responsive and the business rules explicit.</p><a className="btn lightBtn" href="/demo">Open application <Arrow /></a></div><div className="metrics">{metrics.map(([v,l]) => <article key={l}><b>{v}</b><span>{l}</span></article>)}</div></div></section>
 
-      <section className="section shell" id="process"><div className="processGrid"><div><div className="eyebrow"><span></span> From messy to manageable</div><h2>Your process, made visible.</h2></div><div className="steps"><article><span>1</span><div><h3>Connect the work</h3><p>Bring your pipeline and key handoffs into one clear operating view.</p></div></article><article><span>2</span><div><h3>Define what matters</h3><p>Set lightweight rules, ownership and automations around the moments that slow revenue down.</p></div></article><article><span>3</span><div><h3>Improve from signal</h3><p>Use focused reporting to see what is working, what is blocked and what deserves attention next.</p></div></article></div></div></section>
+      <section className="section shell" id="process"><div className="processGrid"><div><div className="eyebrow"><span></span> Application flow</div><h2>From sign-in to decision.</h2></div><div className="steps"><article><span>1</span><div><h3>Enter the workspace</h3><p>Use the evaluation flow to access the product workspace and its protected server route.</p></div></article><article><span>2</span><div><h3>Change the pipeline</h3><p>Search, filter, sort and advance opportunities while derived metrics update immediately.</p></div></article><article><span>3</span><div><h3>Inspect integrations</h3><p>See external FX data loaded through the backend with a separate provider-error state.</p></div></article></div></div></section>
 
-      <section className="ctaSection shell" id="contact"><div className="ctaCard"><div className="eyebrow light"><span></span> Ready when your team is</div><h2>Make your revenue process feel lighter.</h2><p>Start with one workflow. See the difference in how your team moves.</p><a className="btn lightBtn" href="mailto:hello@example.com">Book a walkthrough <Arrow /></a><small>Concept demo — no real product or customer data.</small></div></section>
+      <section className="ctaSection shell" id="contact"><div className="ctaCard"><div className="eyebrow light"><span></span> Evaluate the build</div><h2>Open the application, not a mockup.</h2><p>NovaFlow remains a fictional concept project and contains no real customer data or fabricated client results.</p><a className="btn lightBtn" href="/demo">Launch live workspace <Arrow /></a><small>Concept application · Built by KAVIRO Studio</small></div></section>
 
-      <footer className="shell footer"><a className="brand" href="#top"><span className="brandMark">N</span>NovaFlow</a><p>Conceptual SaaS landing page designed & built by KAVIRO Studio for frontend demonstration purposes.</p><span>© 2026 Concept project</span></footer>
+      <footer className="shell footer"><a className="brand" href="#top"><span className="brandMark">N</span>NovaFlow</a><p>Conceptual SaaS application designed and built by KAVIRO Studio for technical evaluation.</p><span>© 2026 Concept project</span></footer>
     </main>
   );
 }
