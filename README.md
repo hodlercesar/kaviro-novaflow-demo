@@ -2,8 +2,8 @@
 
 NovaFlow is a conceptual B2B revenue-operations application created by **KAVIRO Studio** as a public engineering demonstration.
 
-**Current production landing:** https://kaviro-novaflow-demo.vercel.app  
-**Interactive workspace source:** `/demo` in this repository
+**Production:** https://kaviro-novaflow-demo.vercel.app  
+**Interactive workspace:** `/demo`
 
 > NovaFlow is a fictional product. It is not presented as client work and contains no real customer data or fabricated results.
 
@@ -11,39 +11,62 @@ NovaFlow is a conceptual B2B revenue-operations application created by **KAVIRO 
 
 - Responsive product UI across landing and application views
 - Next.js App Router architecture
-- Client-side state management for pipeline interactions
-- Business rules for risk scoring and weighted revenue forecasting
-- Filtering, sorting and state-driven UI updates
-- Server-side route handlers
-- Functional demo authentication using an HTTP-only session cookie
-- External API integration through a server-side endpoint
-- Provider-error handling separated from UI state
-- Vercel-oriented deployment structure
+- Four functional workspace views: Overview, Pipeline, Automations and Reports
+- Client-side state transitions with browser persistence for the evaluation workspace
+- Opportunity creation, filtering, searching, sorting and stage advancement
+- Business rules for risk scoring and probability-weighted forecasting
+- Protected Next.js route handlers behind an HTTP-only demo session cookie
+- Independent server-side validation and forecast recomputation through `/api/forecast`
+- External FX integration through `/api/exchange`
+- Explicit loading, validation, provider-failure and local-fallback states
+- Activity/audit trail for user-driven workspace changes
+- Responsive desktop and mobile application layouts
+- Vercel Git preview and production deployment workflow
 
 ## Interactive demo
 
-The `/demo` workspace includes a small revenue pipeline. Users can filter and sort opportunities, advance deals through stages and see risk and weighted-forecast calculations update immediately.
+The `/demo` application is intentionally more than a static dashboard. Evaluators can:
+
+1. Sign in using the prefilled demo credentials.
+2. Create new opportunities with validated inputs.
+3. Search and filter the workspace by account and risk.
+4. Advance deals through the pipeline and watch probability, risk and forecast values react.
+5. Switch to a Kanban-style pipeline view.
+6. Enable and pause simulated operational automations.
+7. Review portfolio and risk reports.
+8. Inspect an activity trail of workspace changes.
+9. Reload the browser without losing the current evaluation dataset.
+10. Reset the workspace back to its known baseline at any time.
 
 Demo credentials are prefilled on the sign-in screen:
 
 - Email: `demo@kaviro.studio`
 - Password: `kaviro-demo`
 
-The credentials are intentionally public because this is a portfolio demo, not a production account system. The session itself is handled server-side with an HTTP-only cookie.
+The credentials are intentionally public because this is an evaluation application, not a production account system. Authentication state is handled through an HTTP-only cookie.
+
+## Server-verified forecast
+
+`POST /api/forecast` is a protected route that receives the current opportunity dataset, validates record shape and numeric boundaries, and independently recalculates:
+
+- Open pipeline value
+- Weighted forecast
+- High-risk opportunity count
+- Commit potential
+- Risk distribution
+- Stage totals
+
+The UI can fall back to a local calculation if the server route becomes unavailable, and it exposes that degraded state instead of hiding it.
 
 ## External service integration
 
-`/api/exchange` calls the Frankfurter public foreign-exchange API from the server and exposes normalized exchange-rate data to the workspace. Errors are handled as a separate backend failure state.
+`GET /api/exchange` is protected by the demo session and calls the Frankfurter public foreign-exchange API from the server. The route applies a timeout, checks the provider response shape, normalizes the data and exposes a controlled failure response to the client.
 
-## Persistence status
+## Persistence scope
 
-A production database is **not connected yet**. Pipeline data in the current source is seeded in application state and is intentionally not described as persistent storage.
+The evaluation workspace persists browser state through `localStorage`, which is appropriate for a self-contained public demo and lets evaluators reload without losing their changes.
 
-The next architecture milestone is a real Postgres persistence layer with user-scoped records. This repository will not claim database integration until that service is actually provisioned and connected.
-
-## Deployment status
-
-The original landing is currently deployed on Vercel. The new `/demo` application code has been committed to GitHub, but the existing Vercel project is not automatically linked to the repository, so the upgraded workspace still requires a fresh production deployment before its public URL is advertised.
+A production database is **not** connected, and this repository does not claim otherwise. Real multi-user persistence, user-scoped records and durable audit history would require a database layer such as Postgres.
 
 ## Stack
 
@@ -53,6 +76,7 @@ The original landing is currently deployed on Vercel. The new `/demo` applicatio
 - CSS Modules + custom CSS
 - Next.js Route Handlers
 - HTTP-only cookie session
+- Browser-persisted evaluation state
 - External REST API integration
 - Vercel
 
@@ -74,4 +98,4 @@ npm start
 
 ## About KAVIRO Studio
 
-KAVIRO Studio focuses on scoped web delivery, responsive frontend implementation and conversion-oriented product experiences. NovaFlow exists so collaborators can evaluate implementation quality, UI judgment and application logic without relying on unverified client claims.
+KAVIRO Studio focuses on scoped web delivery, responsive frontend implementation and conversion-oriented product experiences. NovaFlow exists so collaborators can evaluate implementation quality, product judgment and application logic without relying on unverified client claims.
