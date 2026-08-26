@@ -1,6 +1,7 @@
+import { auth } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
+import { ensureSchema, getSql } from '../../../lib/db';
 
-const COOKIE_NAME = 'novaflow_demo_session';
 const allowedStages = new Set(['Discovery', 'Qualified', 'Proposal', 'Negotiation', 'Won']);
 
 function riskFor(deal) {
@@ -20,7 +21,8 @@ function isValidDeal(deal) {
 }
 
 export async function POST(request) {
-  if (request.cookies.get(COOKIE_NAME)?.value !== 'active') {
+  const { userId } = await auth();
+  if (!userId) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
@@ -55,6 +57,21 @@ export async function POST(request) {
     value: deals.filter(deal => deal.stage === stage).reduce((sum, deal) => sum + deal.value, 0),
   }));
 
+  let persisted = false;
+  try {
+    const sql = getSql();
+    await ensureSchema(sql);
+    await sql`
+      INSERT INTO novaflow_workspaces (user_id, deals, updated_at)
+      VALUES (${userId}, ${JSON.stringify(deals)}::jsonb, NOW())
+      ON CONFLICT (user_id)
+      DO UPDATE SET deals = EXCLUDED.deals, updated_at = NOW()
+    `;
+    persisted = true;
+  } catch (error) {
+    console.error('NovaFlow persistence error', error);
+  }
+
   return NextResponse.json({
     metrics: {
       pipeline: Math.round(pipeline),
@@ -68,6 +85,7 @@ export async function POST(request) {
       validatedDeals: deals.length,
       calculatedAt: new Date().toISOString(),
       source: 'server',
+      persisted,
     },
   });
 }
