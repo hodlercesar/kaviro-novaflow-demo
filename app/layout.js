@@ -1,14 +1,17 @@
+import { ClerkProvider } from '@clerk/nextjs';
 import './globals.css';
 
 export const metadata = {
   title: 'NovaFlow — Revenue Operations, simplified',
-  description: 'Concept SaaS landing page designed and built by KAVIRO Studio as a frontend demonstration.'
+  description: 'Concept SaaS application designed and built by KAVIRO Studio as a technical product demonstration.'
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body>{children}</body>
+      </html>
+    </ClerkProvider>
   );
 }
