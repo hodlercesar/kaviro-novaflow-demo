@@ -38,7 +38,7 @@ The database client accepts `STORAGE_URL`, `DATABASE_URL`, `POSTGRES_URL`, or `N
 | ---------------------------- | --------------------------------------------------------- |
 | `app/page.js`                | Public product presentation                               |
 | `app/sign-in`, `app/sign-up` | Clerk authentication UI                                   |
-| `middleware.js`              | Clerk request/session context and frontend API proxy      |
+| `middleware.js`              | Clerk request/session context                            |
 | `app/demo/layout.js`         | Server-side authentication gate                           |
 | `app/demo/page.js`           | Workspace shell and user interactions                     |
 | `app/demo/components`        | Focused dashboard views and accessible opportunity dialog |
