@@ -22,7 +22,7 @@ Next.js 15 App Router · React 18 · JavaScript · CSS Modules · Clerk · Neon 
 
 ## Local setup
 
-Use Node.js 20.9+ and the pnpm version in `package.json`.
+Use Node.js 24 and the pnpm version in `package.json`.
 
 1. Run `pnpm install --frozen-lockfile`.
 2. Copy `.env.example` to `.env.local` and replace the placeholders with **development** Clerk and Neon values. Never commit credentials.
