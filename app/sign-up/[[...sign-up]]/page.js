@@ -1,13 +1,13 @@
-import { SignIn } from "@clerk/nextjs";
+import { SignUp } from "@clerk/nextjs";
 import Link from "next/link";
 import styles from "../../auth.module.css";
 
 export const metadata = {
-  title: "Sign in to NovaFlow",
+  title: "Create a NovaFlow demo workspace",
   robots: { index: false, follow: false },
 };
 
-export default function SignInPage() {
+export default function SignUpPage() {
   return (
     <main className={styles.page}>
       <section className={styles.story}>
@@ -15,16 +15,17 @@ export default function SignInPage() {
           <span>N</span>NovaFlow
         </Link>
         <div className={styles.copy}>
-          <span className={styles.kicker}>KAVIRO Studio · Concept SaaS</span>
-          <h1>Explore a serious product demo.</h1>
+          <span className={styles.kicker}>Private evaluation workspace</span>
+          <h1>Start with fictional data. Test real interactions.</h1>
           <p>
-            Sign in to receive a private workspace seeded only with fictional
-            evaluation data. No client records, claims or results are used.
+            Create an account through Clerk and NovaFlow will prepare a
+            user-scoped concept workspace. The experience never represents
+            fabricated client work.
           </p>
           <div className={styles.proof}>
-            <span>Clerk authentication</span>
-            <span>User-scoped persistence</span>
-            <span>Responsive product UI</span>
+            <span>Isolated demo state</span>
+            <span>Server-verified forecast</span>
+            <span>Safe reset controls</span>
           </div>
         </div>
         <small>
@@ -35,14 +36,14 @@ export default function SignInPage() {
         <div className={styles.formIntro}>
           <span className={styles.miniMark}>N</span>
           <div>
-            <b>NovaFlow Workspace</b>
-            <small>Authenticated evaluation access</small>
+            <b>Create demo workspace</b>
+            <small>Authentication managed by Clerk</small>
           </div>
         </div>
-        <SignIn
+        <SignUp
           routing="path"
-          path="/sign-in"
-          signUpUrl="/sign-up"
+          path="/sign-up"
+          signInUrl="/sign-in"
           forceRedirectUrl="/demo"
           appearance={{
             variables: {

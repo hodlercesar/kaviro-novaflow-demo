@@ -1,101 +1,93 @@
-# NovaFlow — KAVIRO Studio Functional SaaS Demo
+# NovaFlow
 
-NovaFlow is a conceptual B2B revenue-operations application created by **KAVIRO Studio** as a public engineering demonstration.
+A conceptual revenue-operations SaaS by **KAVIRO Studio**. Built for product and engineering evaluation—not presented as client work, a commercial service, or evidence of real business results.
 
-**Production:** https://kaviro-novaflow-demo.vercel.app  
-**Interactive workspace:** `/demo`
+**All accounts, people, opportunities and revenue figures in the seed dataset are fictional.** Authentication accounts are real Clerk identities. Do not enter sensitive customer information into this evaluation app.
 
-> NovaFlow is a fictional product. It is not presented as client work and contains no real customer data or fabricated results.
+## Product scope
 
-## What this project demonstrates
+- Public product landing and authenticated `/demo` workspace.
+- Clerk sign-in, sign-up and sign-out. No shared demo password or parallel session mechanism.
+- Opportunity creation, search, risk filters and stage advancement.
+- Deterministic risk scoring and probability-weighted forecasting, validated on the server.
+- User-scoped Neon persistence for opportunities; explicit local fallback status.
+- Simulated automations, fictional team personas and browser-local preferences/activity.
+- Reference FX rates from Frankfurter, with independent failure handling.
 
-- Responsive product UI across landing and application views
-- Next.js App Router architecture
-- Four functional workspace views: Overview, Pipeline, Automations and Reports
-- Client-side state transitions with browser persistence for the evaluation workspace
-- Opportunity creation, filtering, searching, sorting and stage advancement
-- Business rules for risk scoring and probability-weighted forecasting
-- Protected Next.js route handlers behind an HTTP-only demo session cookie
-- Independent server-side validation and forecast recomputation through `/api/forecast`
-- External FX integration through `/api/exchange`
-- Explicit loading, validation, provider-failure and local-fallback states
-- Activity/audit trail for user-driven workspace changes
-- Responsive desktop and mobile application layouts
-- Vercel Git preview and production deployment workflow
-
-## Interactive demo
-
-The `/demo` application is intentionally more than a static dashboard. Evaluators can:
-
-1. Sign in using the prefilled demo credentials.
-2. Create new opportunities with validated inputs.
-3. Search and filter the workspace by account and risk.
-4. Advance deals through the pipeline and watch probability, risk and forecast values react.
-5. Switch to a Kanban-style pipeline view.
-6. Enable and pause simulated operational automations.
-7. Review portfolio and risk reports.
-8. Inspect an activity trail of workspace changes.
-9. Reload the browser without losing the current evaluation dataset.
-10. Reset the workspace back to its known baseline at any time.
-
-Demo credentials are prefilled on the sign-in screen:
-
-- Email: `demo@kaviro.studio`
-- Password: `kaviro-demo`
-
-The credentials are intentionally public because this is an evaluation application, not a production account system. Authentication state is handled through an HTTP-only cookie.
-
-## Server-verified forecast
-
-`POST /api/forecast` is a protected route that receives the current opportunity dataset, validates record shape and numeric boundaries, and independently recalculates:
-
-- Open pipeline value
-- Weighted forecast
-- High-risk opportunity count
-- Commit potential
-- Risk distribution
-- Stage totals
-
-The UI can fall back to a local calculation if the server route becomes unavailable, and it exposes that degraded state instead of hiding it.
-
-## External service integration
-
-`GET /api/exchange` is protected by the demo session and calls the Frankfurter public foreign-exchange API from the server. The route applies a timeout, checks the provider response shape, normalizes the data and exposes a controlled failure response to the client.
-
-## Persistence scope
-
-The evaluation workspace persists browser state through `localStorage`, which is appropriate for a self-contained public demo and lets evaluators reload without losing their changes.
-
-A production database is **not** connected, and this repository does not claim otherwise. Real multi-user persistence, user-scoped records and durable audit history would require a database layer such as Postgres.
+Automations do **not** send email, run background jobs or use AI. Activity is a lightweight evaluation feed, not a durable audit log. Team personas are **not** real workspace members. The app has no billing or real-time collaboration.
 
 ## Stack
 
-- Next.js 15
-- React 19
-- JavaScript
-- CSS Modules + custom CSS
-- Next.js Route Handlers
-- HTTP-only cookie session
-- Browser-persisted evaluation state
-- External REST API integration
-- Vercel
+Next.js 15 App Router · React 18 · JavaScript · CSS Modules · Clerk · Neon Postgres · Vercel.
 
-## Run locally
+## Local setup
 
-```bash
-npm install
-npm run dev
+Use Node.js 20.9+ and the pnpm version in `package.json`.
+
+1. Run `pnpm install --frozen-lockfile`.
+2. Copy `.env.example` to `.env.local` and replace the placeholders with **development** Clerk and Neon values. Never commit credentials.
+3. Apply `db/migrations/001_novaflow_workspaces.sql` to the intended Neon development branch. The app does not create tables during requests.
+4. Run `pnpm dev` and open `http://localhost:3000`.
+5. Sign in with a Clerk test account to evaluate `/demo`.
+
+The database client accepts `STORAGE_URL`, `DATABASE_URL`, `POSTGRES_URL`, or `NEON_DATABASE_URL`, in that precedence order, for compatibility with existing deployment configuration. Prefer a single `DATABASE_URL` for new environments.
+
+## Architecture
+
+| Boundary                     | Responsibility                                            |
+| ---------------------------- | --------------------------------------------------------- |
+| `app/page.js`                | Public product presentation                               |
+| `app/sign-in`, `app/sign-up` | Clerk authentication UI                                   |
+| `middleware.js`              | Clerk request/session context and frontend API proxy      |
+| `app/demo/layout.js`         | Server-side authentication gate                           |
+| `app/demo/page.js`           | Workspace shell and user interactions                     |
+| `app/demo/components`        | Focused dashboard views and accessible opportunity dialog |
+| `app/demo/useWorkspace.js`   | Hydration, per-user browser fallback and debounced saves  |
+| `lib/novaflow.mjs`           | Shared validation, risk and forecast rules                |
+| `lib/demo-data.mjs`          | Explicit fictional baseline                               |
+| `lib/db.js`                  | Database access, imported only by API handlers            |
+
+### APIs
+
+Every handler checks Clerk authentication on the server. Identity comes from `auth()`, never from a client-supplied user ID.
+
+| Route           | Method | Behavior                                    |
+| --------------- | ------ | ------------------------------------------- |
+| `/api/deals`    | GET    | Read the signed-in user's workspace         |
+| `/api/deals`    | PUT    | Validate and save that user's opportunities |
+| `/api/forecast` | POST   | Validate and calculate; never persist       |
+| `/api/exchange` | GET    | Fetch cached public reference rates         |
+
+Workspace responses are private and not shared-cacheable. SQL uses parameterized tagged templates. Record limits, allowed fields and numeric boundaries are validated server-side.
+
+### Persistence contract
+
+Neon is canonical when available. One row in `novaflow_workspaces` belongs to one Clerk `user_id`. The browser cache is keyed by that same identity (`novaflow:workspace:v2:<userId>`); the old global demo cache is not imported. Anonymous users cannot access workspace APIs.
+
+Opportunity saves are debounced. A visible status distinguishes saving, saved-to-Neon and browser-only fallback. If a local-only change conflicts with an existing Neon workspace on a later load, Neon wins. Simultaneous tabs/devices use last-write-wins; conflict resolution is outside this demo's scope. Browser-local activity, automation toggles and preferences do not sync between devices.
+
+## Quality checks
+
+```sh
+pnpm lint
+pnpm test
+pnpm build
+pnpm format:check
 ```
 
-Then open `http://localhost:3000` or `http://localhost:3000/demo`.
+`pnpm check` runs all four. Build requires a valid Clerk publishable key. Automated unit tests cover deterministic business rules and validation; they do not replace a real authenticated browser test.
 
-## Build
+Before publishing, test desktop/mobile, keyboard navigation, protected redirects, sign-in/sign-out, creation, stage advancement, reload persistence, reset, and provider/database failure states. Verify two separate Clerk users cannot see one another's data.
 
-```bash
-npm run build
-npm start
-```
+## Deployment review
 
-## About KAVIRO Studio
+- Use separate Clerk development/production instances and separate Neon branches for preview/production.
+- Apply the migration before deploying. Existing tables should be inspected before any schema change.
+- Configure Clerk authorized domains, social providers and redirects for the deployment.
+- Development-mode Clerk branding is controlled by the Clerk instance/keys, not hidden with CSS.
+- Verify security headers, authenticated API responses and runtime logs.
+- Review changes and deploy explicitly; no production deployment is part of the review branch workflow.
 
-KAVIRO Studio focuses on scoped web delivery, responsive frontend implementation and conversion-oriented product experiences. NovaFlow exists so collaborators can evaluate implementation quality, product judgment and application logic without relying on unverified client claims.
+## Deliberate limitations
+
+This is a portfolio demonstration, not a production CRM. It has no organization authorization, database row-level security, optimistic concurrency, full offline synchronization, abuse-rate limiting or user-data retention automation. Those require a separate production scope. Clerk protects identity; each database query enforces ownership at the application boundary.
