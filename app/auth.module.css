@@ -1,0 +1,436 @@
+.page {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(ellipse at 50% 33%, #7199ff10, transparent 52%), #090a0e;
+  color: #efeaf5;
+}
+.topbar {
+  width: min(1160px, calc(100% - 64px));
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: 76px;
+  flex-shrink: 0;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: -0.6px;
+}
+.center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 94px 20px 20px;
+}
+.card {
+  width: 100%;
+  max-width: 440px;
+  position: relative;
+  padding: 136px 32px 20px;
+  border: 1px solid #b69bc327;
+  border-radius: 20px;
+  background: linear-gradient(155deg, #1a1720, #131219 38%);
+  box-shadow:
+    0 24px 75px #0005,
+    0 0 84px #7a9fff08,
+    inset 0 1px #d9bfff07;
+}
+.mascot {
+  position: absolute;
+  pointer-events: none;
+  left: 50%;
+  top: -95px;
+  transform: translateX(-50%);
+  width: 250px;
+  height: 174px;
+}
+.mascot svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.creature {
+  transform-origin: 140px 175px;
+  animation: breathe 6.5s ease-in-out infinite;
+}
+.head {
+  transform-origin: 140px 115px;
+  transition: transform 0.42s cubic-bezier(0.22, 0.65, 0.3, 1);
+}
+.pupils {
+  transition: transform 0.36s ease;
+}
+.eyes {
+  transform-origin: 140px 106px;
+  animation: blink 9s ease-in-out infinite;
+  transition: opacity 0.2s;
+}
+.leftPaw,
+.rightPaw {
+  transition: transform 0.48s cubic-bezier(0.22, 0.65, 0.3, 1);
+  transform-origin: 140px 154px;
+}
+.forehead {
+  transition: fill 0.3s;
+}
+.smile {
+  transition: stroke 0.3s;
+}
+.mascot[data-pose="email"] .head {
+  transform: rotate(1.5deg) translateY(1px);
+}
+.mascot[data-pose="email"] .pupils {
+  transform: translate(3px, 3px);
+}
+.mascot[data-pose="shield"] .leftPaw {
+  transform: translate(14px, -60px) rotate(-8deg);
+}
+.mascot[data-pose="shield"] .rightPaw {
+  transform: translate(-14px, -60px) rotate(8deg);
+}
+.mascot[data-pose="shield"] .head {
+  transform: translateY(3px);
+}
+.mascot[data-pose="shield"] .eyes {
+  opacity: 0.15;
+}
+.mascot[data-pose="peek"] .leftPaw {
+  transform: translate(3px, -51px) rotate(-12deg);
+}
+.mascot[data-pose="peek"] .rightPaw {
+  transform: translate(-3px, -51px) rotate(12deg);
+}
+.mascot[data-pose="peek"] .pupils {
+  transform: translateY(4px);
+}
+.mascot[data-feedback="error"] .creature {
+  animation: rethink 0.45s ease-out 1;
+}
+.mascot[data-feedback="error"] .forehead {
+  fill: #e5ae98;
+}
+.mascot[data-feedback="success"] .creature {
+  animation: welcome 0.5s ease-out 1;
+}
+.mascot[data-feedback="success"] .forehead {
+  fill: #a6e8cc;
+}
+.mascot[data-feedback="success"] .smile {
+  stroke: #c7f4e5;
+}
+.formSlot {
+  /* Reserve the initial form's space while Clerk loads; errors can grow naturally. */
+  min-height: 436px;
+}
+.loading {
+  padding-top: 8px;
+  color: #beb4cf;
+  font-size: 13px;
+  text-align: center;
+}
+.loading > span {
+  display: block;
+  margin-bottom: 36px;
+}
+.loadingButton,
+.loadingField {
+  height: 48px;
+  border: 1px solid #ffffff12;
+  border-radius: 8px;
+  background: #ffffff03;
+  margin-bottom: 30px;
+}
+.loadingField {
+  margin-top: 52px;
+}
+.clerkRoot.clerkRoot,
+.clerkBox.clerkBox {
+  width: 100%;
+  max-width: 100%;
+  box-shadow: none;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+.clerkCard.clerkCard {
+  box-shadow: none;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  width: 100%;
+  gap: 28px;
+}
+.clerkTitle.clerkTitle {
+  color: #f0eaf8;
+  font-size: 26px;
+  font-weight: 550;
+  letter-spacing: -0.85px;
+  line-height: 1.25;
+}
+.clerkSubtitle.clerkSubtitle {
+  font-size: 13px;
+  color: #c4b9d2;
+  line-height: 1.6;
+}
+.socialButton.socialButton {
+  min-height: 48px;
+  background: #ffffff04;
+  border: 1px solid #b9a3d343;
+  color: #e2d9ed;
+  box-shadow: none;
+  border-radius: 8px;
+}
+.socialButton.socialButton:hover {
+  background: #ffffff09;
+  border-color: #b9a3d37a;
+}
+.input.input {
+  min-height: 48px;
+  background: #0e0e14;
+  color: #eee8f6;
+  box-shadow: none;
+  border: 1px solid #9583aa6b;
+  border-radius: 8px;
+  font-size: 14px;
+}
+.input.input:hover:not(:focus) {
+  border-color: #aa98bf99;
+}
+.input.input::placeholder {
+  color: #a79cb9;
+  opacity: 1;
+}
+.input.input:focus {
+  border-color: #b7a0ea;
+  box-shadow: none;
+  outline: 2px solid #b7a0ea;
+  outline-offset: 2px;
+}
+.submit.submit {
+  min-height: 48px;
+  background: #b9a6ff;
+  border: 1px solid #d6c9ff55;
+  color: #191225;
+  box-shadow: inset 0 1px #ffffff40;
+  font-weight: 650;
+  border-radius: 8px;
+}
+.submit.submit:hover {
+  background: #cabaff;
+}
+.submit.submit:disabled {
+  opacity: 0.6;
+}
+.input,
+.submit,
+.socialButton {
+  transition:
+    background-color 0.18s,
+    border-color 0.18s,
+    box-shadow 0.18s;
+}
+.submit.submit:active:not(:disabled) {
+  background: #ad96f5;
+}
+.clerkFooter.clerkFooter {
+  background: transparent;
+  background-image: none;
+  padding: 14px 0 0;
+  border: 0;
+}
+.authLink.authLink {
+  color: #cbb7fc;
+}
+.authLink.authLink:hover {
+  color: #e3d4ff;
+  text-decoration: underline;
+}
+.providerFooter.providerFooter {
+  padding: 10px 0 0;
+  background: transparent;
+  background-image: none;
+}
+/* Preserve provider branding and the development notice, at supporting scale. */
+.providerFooter.providerFooter p {
+  font-size: 11px;
+  line-height: 1.5;
+}
+.passwordToggle.passwordToggle {
+  color: #bcb0ca;
+  min-width: 44px;
+  min-height: 44px;
+}
+.fieldLabel.fieldLabel {
+  color: #cec3db;
+  font-size: 12px;
+}
+.footerText.footerText {
+  color: #c1b5d0;
+  font-size: 12px;
+}
+.footerLink.footerLink {
+  font-size: 12px;
+}
+.dividerText.dividerText {
+  color: #b8abc8;
+  font-size: 10px;
+}
+.dividerLine.dividerLine {
+  background: #ab92c426;
+}
+.formSlot :global(.nf-auth-error) {
+  color: #ffb6af;
+}
+.formSlot :global(button):focus-visible,
+.formSlot :global(a):focus-visible {
+  outline: 2px solid #c3a7ff;
+  outline-offset: 3px;
+  box-shadow: none;
+}
+.backLink {
+  font-size: 12px;
+  color: #c0b3d0;
+  padding: 12px 18px;
+  min-height: 44px;
+  margin-top: 4px;
+}
+.backLink:hover {
+  color: #d8c6f1;
+}
+.footer {
+  text-align: center;
+  font-size: 10px;
+  color: #b8acc8;
+  padding: 0 20px 20px;
+}
+@keyframes breathe {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-1.5px);
+  }
+}
+@keyframes blink {
+  0%,
+  44%,
+  48%,
+  100% {
+    transform: scaleY(1);
+  }
+  46% {
+    transform: scaleY(0.12);
+  }
+}
+@keyframes rethink {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  40% {
+    transform: rotate(-1.2deg);
+  }
+  70% {
+    transform: rotate(0.7deg);
+  }
+}
+@keyframes welcome {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  45% {
+    transform: translateY(-3px);
+  }
+}
+@media (max-width: 540px) {
+  .topbar {
+    width: calc(100% - 36px);
+    height: 56px;
+  }
+  .brand {
+    font-size: 19px;
+  }
+  .center {
+    padding: 65px 16px 8px;
+    justify-content: flex-start;
+  }
+  .card {
+    padding: 86px 24px 14px;
+    border-radius: 17px;
+  }
+  .mascot {
+    top: -76px;
+    width: 210px;
+    height: 146px;
+  }
+  .clerkTitle.clerkTitle {
+    font-size: 23px;
+  }
+  .clerkCard.clerkCard {
+    gap: 22px;
+  }
+  .formSlot {
+    min-height: 424px;
+  }
+  .input.input {
+    font-size: 16px;
+  }
+  .footer {
+    padding-bottom: 12px;
+  }
+}
+@media (max-width: 360px) {
+  .card {
+    padding-inline: 18px;
+  }
+}
+@media (min-width: 1440px) {
+  .card {
+    max-width: 472px;
+    padding-inline: 36px;
+  }
+  .clerkTitle.clerkTitle {
+    font-size: 28px;
+  }
+}
+@media (max-height: 860px) and (min-width: 541px) {
+  .topbar {
+    height: 60px;
+  }
+  .center {
+    padding-top: 58px;
+    padding-bottom: 8px;
+  }
+  .mascot {
+    width: 220px;
+    height: 153px;
+    top: -78px;
+  }
+  .card {
+    padding-top: 100px;
+  }
+  .footer {
+    padding-bottom: 12px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page *,
+  .page *::before {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+

@@ -1,10 +1,10 @@
 import AuthExperience from "../../_components/AuthExperience";
 
 export const metadata = {
-  title: "Sign in to NovaFlow",
+  title: "Create a NovaFlow demo workspace",
   robots: { index: false, follow: false },
 };
 
-export default function SignInPage() {
-  return <AuthExperience />;
+export default function SignUpPage() {
+  return <AuthExperience mode="sign-up" />;
 }
