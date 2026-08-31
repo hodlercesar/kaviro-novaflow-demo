@@ -22,7 +22,7 @@ export default function Home() {
         </Link>
         <nav aria-label="Navegación principal">
           <a href="#product">Producto</a>
-          <a href="#build">El proyecto</a>
+          <a href="#build">KAVIRO Studio</a>
         </nav>
         <Link href="/sign-in" className={styles.navLogin}>
           Iniciar sesión <Icon name="arrow" size={16} />
@@ -35,7 +35,7 @@ export default function Home() {
         >
           <p className={styles.eyebrow}>
             <span />
-            NOVAFLOW · CONCEPT DEMO
+            NOVAFLOW · CONCEPT DEMO BY KAVIRO STUDIO
           </p>
           <h1 id="hero-title">
             Tu pipeline.
@@ -43,11 +43,12 @@ export default function Home() {
             <span>Todo más claro.</span>
           </h1>
           <p className={styles.heroSubtitle}>
-            Pipeline, prioridades y forecast.
+            Una demo interactiva que muestra cómo diseñamos, construimos y
+            mejoramos productos web.
           </p>
           <div className={styles.heroActions}>
             <Link href="/demo" className={styles.primary}>
-              Explorar demo <Icon name="arrow" />
+              Explorar NovaFlow <Icon name="arrow" />
             </Link>
           </div>
         </section>
@@ -82,11 +83,22 @@ export default function Home() {
           className={`${styles.build} ${styles.shell}`}
           aria-labelledby="build-title"
         >
-          <div lang="en">
-            <h2 id="build-title">Conceptual SaaS product</h2>
-            <p>Built by KAVIRO Studio</p>
+          <div>
+            <h2 id="build-title">Built by KAVIRO Studio</h2>
+            <p>
+              Desarrollo web · React/Next.js · Landing pages · Arreglos y
+              mejoras · Integraciones
+            </p>
+            <div style={{ marginTop: 16 }}>
+              <a
+                href="mailto:empresakavirostudio@gmail.com?subject=Proyecto%20web%20con%20KAVIRO%20Studio"
+                className={styles.primary}
+              >
+                Trabajar con KAVIRO <Icon name="arrow" size={16} />
+              </a>
+            </div>
           </div>
-          <ul aria-label="Tecnologías utilizadas">
+          <ul aria-label="Tecnologías utilizadas en NovaFlow">
             {["Next.js", "React", "Clerk", "Neon", "Vercel"].map((name) => (
               <li key={name}>{name}</li>
             ))}
