@@ -14,7 +14,7 @@ const appearance = {
     colorPrimaryForeground: "#191225",
     colorBackground: "#131219",
     colorForeground: "#eee9f5",
-    colorMutedForeground: "#aea3bf",
+    colorMutedForeground: "#beb4cf",
     colorNeutral: "#e2d6f2",
     colorInput: "#0e0e14",
     colorInputForeground: "#f1ebfa",
@@ -35,6 +35,7 @@ const appearance = {
     formFieldInput: styles.input,
     formButtonPrimary: styles.submit,
     footer: styles.clerkFooter,
+    footerItem: styles.providerFooter,
     footerActionLink: styles.authLink,
     formFieldAction: styles.authLink,
     formFieldErrorText: "nf-auth-error",
@@ -117,7 +118,6 @@ export default function AuthExperience({ mode = "sign-in" }) {
         <Link href="/" aria-label="NovaFlow home">
           <Brand className={styles.brand} />
         </Link>
-        <span>CONCEPT WORKSPACE</span>
       </header>
       <div className={styles.center}>
         <section
@@ -132,10 +132,6 @@ export default function AuthExperience({ mode = "sign-in" }) {
             pose={pose}
             feedback={isSignedIn ? "success" : hasError ? "error" : "idle"}
           />
-          <div className={styles.mascotLabel}>
-            <span />
-            YOUR QUIET CO-PILOT
-          </div>
           <div ref={formRef} className={styles.formSlot}>
             {mode === "sign-up" ? (
               <SignUp
@@ -155,30 +151,12 @@ export default function AuthExperience({ mode = "sign-in" }) {
               />
             )}
           </div>
-          <div className={styles.cardNote}>
-            <svg
-              width="13"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.6"
-              aria-hidden="true"
-            >
-              <path d="m12 3-7 3v5c0 5 3 8 7 10 4-2 7-5 7-10V6l-7-3Z" />
-              <path d="m9 12 2 2 4-4" />
-            </svg>
-            Clerk authentication · Fictional demo data
-          </div>
         </section>
         <Link href="/" className={styles.backLink}>
           ← Back to NovaFlow
         </Link>
       </div>
-      <footer className={styles.footer}>
-        A conceptual SaaS by KAVIRO Studio.
-        <span>For evaluation, not customer records.</span>
-      </footer>
+      <footer className={styles.footer}>Concept demo · Fictional data</footer>
     </main>
   );
 }

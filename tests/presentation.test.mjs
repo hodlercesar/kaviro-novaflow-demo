@@ -24,9 +24,15 @@ test("public preview shares exact fictional dashboard calculations", () => {
 test("mascot follows field metadata without credential values", () => {
   assert.equal(mascotPose(), "idle");
   assert.equal(mascotPose({ type: "text", name: "identifier" }), "email");
+  assert.equal(mascotPose({ type: "text", name: "username" }), "email");
   assert.equal(mascotPose({ type: "email" }), "email");
   assert.equal(mascotPose({ type: "password" }), "shield");
   assert.equal(mascotPose({ type: "text", name: "password" }), "peek");
   assert.equal(mascotPose({ type: "text", id: "password-field" }), "peek");
   assert.equal(mascotPose({ type: "tel", name: "code" }), "idle");
+});
+
+test("password privacy takes precedence over identifier-like field names", () => {
+  assert.equal(mascotPose({ type: "password", name: "username" }), "shield");
+  assert.equal(mascotPose({ type: "text", id: "new-password-field" }), "peek");
 });

@@ -49,13 +49,13 @@ export default function RootLayout({ children }) {
             signIn: {
               start: {
                 title: "Welcome to NovaFlow",
-                subtitle: "A little focus. A clearer pipeline.",
+                subtitle: "",
               },
             },
             signUp: {
               start: {
-                title: "Your workspace awaits",
-                subtitle: "Create an account to explore NovaFlow.",
+                title: "Create your workspace",
+                subtitle: "",
               },
             },
           }}

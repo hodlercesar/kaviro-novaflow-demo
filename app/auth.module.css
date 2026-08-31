@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   background:
-    radial-gradient(ellipse at 50% 33%, #9972ff0c, transparent 50%), #090a0e;
+    radial-gradient(ellipse at 50% 33%, #7199ff10, transparent 52%), #090a0e;
   color: #efeaf5;
 }
 .topbar {
@@ -13,7 +13,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  height: 86px;
+  height: 76px;
   flex-shrink: 0;
 }
 .brand {
@@ -24,30 +24,25 @@
   font-weight: 600;
   letter-spacing: -0.6px;
 }
-.topbar > span {
-  font-size: 9px;
-  letter-spacing: 1.8px;
-  color: #a499b1;
-}
 .center {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 76px 20px 32px;
+  padding: 94px 20px 20px;
 }
 .card {
   width: 100%;
-  max-width: 420px;
+  max-width: 440px;
   position: relative;
-  padding: 93px 32px 20px;
+  padding: 136px 32px 20px;
   border: 1px solid #b69bc327;
   border-radius: 20px;
   background: linear-gradient(155deg, #1a1720, #131219 38%);
   box-shadow:
     0 24px 75px #0005,
-    0 0 80px #a87cff05,
+    0 0 84px #7a9fff08,
     inset 0 1px #d9bfff07;
 }
 .mascot {
@@ -67,22 +62,23 @@
 }
 .creature {
   transform-origin: 140px 175px;
-  animation: breathe 5s ease-in-out infinite;
+  animation: breathe 6.5s ease-in-out infinite;
 }
 .head {
   transform-origin: 140px 115px;
-  transition: transform 0.35s ease;
+  transition: transform 0.42s cubic-bezier(0.22, 0.65, 0.3, 1);
 }
 .pupils {
-  transition: transform 0.28s ease;
+  transition: transform 0.36s ease;
 }
 .eyes {
   transform-origin: 140px 106px;
-  animation: blink 7s ease-in-out infinite;
+  animation: blink 9s ease-in-out infinite;
+  transition: opacity 0.2s;
 }
 .leftPaw,
 .rightPaw {
-  transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.3, 1);
+  transition: transform 0.48s cubic-bezier(0.22, 0.65, 0.3, 1);
   transform-origin: 140px 154px;
 }
 .forehead {
@@ -92,10 +88,10 @@
   transition: stroke 0.3s;
 }
 .mascot[data-pose="email"] .head {
-  transform: rotate(3deg) translateY(2px);
+  transform: rotate(1.5deg) translateY(1px);
 }
 .mascot[data-pose="email"] .pupils {
-  transform: translate(5px, 4px);
+  transform: translate(3px, 3px);
 }
 .mascot[data-pose="shield"] .leftPaw {
   transform: translate(14px, -60px) rotate(-8deg);
@@ -133,24 +129,9 @@
 .mascot[data-feedback="success"] .smile {
   stroke: #c7f4e5;
 }
-.mascotLabel {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 6px;
-  font-size: 8px;
-  letter-spacing: 1.9px;
-  color: #a99abc;
-  margin-bottom: 23px;
-}
-.mascotLabel > span {
-  height: 4px;
-  width: 4px;
-  background: #b5a0d3;
-  border-radius: 50%;
-}
 .formSlot {
-  min-height: 376px;
+  /* Reserve the initial form's space while Clerk loads; errors can grow naturally. */
+  min-height: 400px;
 }
 .clerkRoot.clerkRoot,
 .clerkBox.clerkBox {
@@ -167,49 +148,56 @@
   border: 0;
   padding: 0;
   width: 100%;
-  gap: 22px;
+  gap: 28px;
 }
 .clerkTitle.clerkTitle {
   color: #f0eaf8;
-  font-size: 25px;
+  font-size: 26px;
   font-weight: 550;
   letter-spacing: -0.85px;
   line-height: 1.25;
 }
 .clerkSubtitle.clerkSubtitle {
-  font-size: 12px;
-  color: #b2a6c0;
+  font-size: 13px;
+  color: #c4b9d2;
   line-height: 1.6;
 }
 .socialButton.socialButton {
-  min-height: 45px;
+  min-height: 48px;
   background: #ffffff04;
-  border: 1px solid #b9a3d329;
+  border: 1px solid #b9a3d343;
   color: #e2d9ed;
   box-shadow: none;
   border-radius: 8px;
 }
 .socialButton.socialButton:hover {
   background: #ffffff09;
-  border-color: #b9a3d359;
+  border-color: #b9a3d37a;
 }
 .input.input {
-  min-height: 45px;
+  min-height: 48px;
   background: #0e0e14;
   color: #eee8f6;
   box-shadow: none;
-  border: 1px solid #9583aa40;
+  border: 1px solid #9583aa6b;
   border-radius: 8px;
   font-size: 14px;
 }
+.input.input:hover:not(:focus) {
+  border-color: #aa98bf99;
+}
+.input.input::placeholder {
+  color: #a79cb9;
+  opacity: 1;
+}
 .input.input:focus {
   border-color: #b7a0ea;
-  box-shadow: 0 0 0 3px #ae8bf719;
+  box-shadow: none;
   outline: 2px solid #b7a0ea;
   outline-offset: 2px;
 }
 .submit.submit {
-  min-height: 45px;
+  min-height: 48px;
   background: #b9a6ff;
   border: 1px solid #d6c9ff55;
   color: #191225;
@@ -223,10 +211,21 @@
 .submit.submit:disabled {
   opacity: 0.6;
 }
+.input,
+.submit,
+.socialButton {
+  transition:
+    background-color 0.18s,
+    border-color 0.18s,
+    box-shadow 0.18s;
+}
+.submit.submit:active:not(:disabled) {
+  background: #ad96f5;
+}
 .clerkFooter.clerkFooter {
   background: transparent;
   background-image: none;
-  padding: 20px 0 0;
+  padding: 14px 0 0;
   border: 0;
 }
 .authLink.authLink {
@@ -236,24 +235,34 @@
   color: #e3d4ff;
   text-decoration: underline;
 }
+.providerFooter.providerFooter {
+  padding: 10px 0 0;
+  background: transparent;
+  background-image: none;
+}
+/* Preserve provider branding and the development notice, at supporting scale. */
+.providerFooter.providerFooter p {
+  font-size: 11px;
+  line-height: 1.5;
+}
 .formSlot :global(.cl-formFieldInputShowPasswordButton) {
   color: #bcb0ca;
-  min-width: 40px;
-  min-height: 40px;
+  min-width: 44px;
+  min-height: 44px;
 }
 .formSlot :global(.cl-formFieldLabel) {
   color: #cec3db;
   font-size: 12px;
 }
 .formSlot :global(.cl-footerActionText) {
-  color: #b1a4c2;
-  font-size: 11px;
+  color: #c1b5d0;
+  font-size: 12px;
 }
 .formSlot :global(.cl-footerActionLink) {
-  font-size: 11px;
+  font-size: 12px;
 }
 .formSlot :global(.cl-dividerText) {
-  color: #a497b5;
+  color: #b8abc8;
   font-size: 10px;
 }
 .formSlot :global(.cl-dividerLine) {
@@ -266,23 +275,13 @@
 .formSlot :global(a):focus-visible {
   outline: 2px solid #c3a7ff;
   outline-offset: 3px;
-}
-.cardNote {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  text-align: center;
-  color: #a79ab7;
-  font-size: 9px;
-  padding-top: 16px;
-  border-top: 1px solid #ffffff0b;
-  margin-top: 14px;
+  box-shadow: none;
 }
 .backLink {
-  font-size: 11px;
-  color: #b3a6c4;
-  padding: 18px;
+  font-size: 12px;
+  color: #c0b3d0;
+  padding: 12px 18px;
+  min-height: 44px;
   margin-top: 4px;
 }
 .backLink:hover {
@@ -291,13 +290,8 @@
 .footer {
   text-align: center;
   font-size: 10px;
-  color: #a298ad;
-  padding: 0 20px 25px;
-}
-.footer span {
-  display: block;
-  color: #95889f;
-  margin-top: 5px;
+  color: #b8acc8;
+  padding: 0 20px 20px;
 }
 @keyframes breathe {
   0%,
@@ -305,7 +299,7 @@
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-3px);
+    transform: translateY(-1.5px);
   }
 }
 @keyframes blink {
@@ -325,10 +319,10 @@
     transform: rotate(0);
   }
   40% {
-    transform: rotate(-3deg);
+    transform: rotate(-1.2deg);
   }
   70% {
-    transform: rotate(2deg);
+    transform: rotate(0.7deg);
   }
 }
 @keyframes welcome {
@@ -337,55 +331,75 @@
     transform: translateY(0);
   }
   45% {
-    transform: translateY(-7px);
+    transform: translateY(-3px);
   }
 }
 @media (max-width: 540px) {
   .topbar {
     width: calc(100% - 36px);
-    height: 72px;
+    height: 56px;
   }
   .brand {
     font-size: 19px;
   }
-  .topbar > span {
-    font-size: 7px;
-    letter-spacing: 1.2px;
-  }
   .center {
-    padding: 77px 16px 20px;
+    padding: 65px 16px 8px;
+    justify-content: flex-start;
   }
   .card {
-    padding: 86px 24px 18px;
+    padding: 86px 24px 14px;
     border-radius: 17px;
   }
   .mascot {
-    top: -85px;
-    width: 230px;
-    height: 160px;
+    top: -76px;
+    width: 210px;
+    height: 146px;
   }
   .clerkTitle.clerkTitle {
-    font-size: 24px;
+    font-size: 23px;
   }
-  .mascotLabel {
-    margin-bottom: 22px;
+  .clerkCard.clerkCard {
+    gap: 22px;
+  }
+  .formSlot {
+    min-height: 382px;
   }
   .input.input {
     font-size: 16px;
   }
   .footer {
-    padding-bottom: 20px;
+    padding-bottom: 12px;
   }
 }
 @media (max-width: 360px) {
   .card {
     padding-inline: 18px;
   }
-  .topbar > span {
-    display: none;
+}
+@media (min-width: 1440px) {
+  .card {
+    max-width: 472px;
+    padding-inline: 36px;
   }
-  .cardNote {
-    font-size: 8px;
+  .clerkTitle.clerkTitle {
+    font-size: 28px;
+  }
+}
+@media (max-height: 760px) and (min-width: 541px) {
+  .topbar {
+    height: 60px;
+  }
+  .center {
+    padding-top: 60px;
+    padding-bottom: 8px;
+  }
+  .mascot {
+    width: 220px;
+    height: 153px;
+    top: -78px;
+  }
+  .card {
+    padding-top: 106px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

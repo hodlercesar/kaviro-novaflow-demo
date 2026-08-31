@@ -24,7 +24,7 @@ export default function ProductPreview() {
     ],
     ["Weighted forecast", money(metrics.weighted), "Probability-weighted"],
     ["At risk", `${metrics.atRisk} deal`, "Needs a next step"],
-    ["Win potential", money(metrics.winPotential), "Proposal + negotiation"],
+    ["Late-stage value", money(metrics.winPotential), "Proposal + negotiation"],
   ];
 
   return (
@@ -66,19 +66,18 @@ export default function ProductPreview() {
           <div className={styles.sideFoot}>
             <span className={styles.sampleAvatar}>D</span>
             <span>
-              Demo workspace<small>Fictional evaluation data</small>
+              Demo workspace<small>Concept demo</small>
             </span>
           </div>
         </aside>
         <div className={styles.previewMain}>
           <div className={styles.previewHeader}>
             <div>
-              <span className={styles.overline}>YOUR WORKSPACE, IN FOCUS</span>
               <h2>Overview</h2>
             </div>
             <Link href="/demo" className={styles.previewAction}>
-              <Icon name="plus" size={14} />
-              New opportunity
+              Open workspace
+              <Icon name="arrow" size={14} />
             </Link>
           </div>
           <div className={styles.metrics}>
@@ -152,10 +151,6 @@ export default function ProductPreview() {
                   </div>
                 ))}
               </div>
-              <div className={styles.queueNote}>
-                <Icon name="shield" size={14} />
-                Rule-based scoring · no AI claims
-              </div>
             </section>
           </div>
           <div className={styles.previewBottom}>
@@ -185,7 +180,7 @@ export default function ProductPreview() {
       </div>
       <figcaption id="preview-caption">
         <span className={styles.captionDot} />
-        Vista del producto · datos ficticios del mismo conjunto de la demo
+        Demo conceptual · Datos ficticios
       </figcaption>
     </figure>
   );
