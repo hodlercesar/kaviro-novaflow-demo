@@ -117,11 +117,12 @@ export default function DemoPage() {
       toast(
         `This evaluation workspace supports up to ${MAX_DEALS} opportunities.`,
       );
-      return;
+      return false;
     }
     workspace.setDeals((current) => [item, ...current]);
     workspace.addActivity(`${item.company} created in ${item.stage}`);
     toast("Fictional opportunity created");
+    return true;
   }
 
   function advanceDeal(id) {
