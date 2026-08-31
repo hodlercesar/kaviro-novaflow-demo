@@ -73,7 +73,7 @@ export default function NewOpportunityModal({ open, onClose, onCreate }) {
       return;
     }
 
-    onCreate({
+    const created = onCreate({
       id: crypto.randomUUID(),
       company: draft.company.trim(),
       contact: draft.contact.trim(),
@@ -84,6 +84,14 @@ export default function NewOpportunityModal({ open, onClose, onCreate }) {
       daysIdle: 0,
       next: draft.next.trim(),
     });
+
+    if (created === false) {
+      setError(
+        "This evaluation workspace has reached its opportunity limit. Reset the demo or remove data before creating another record.",
+      );
+      return;
+    }
+
     setDraft(initialDraft);
     onClose();
   }
