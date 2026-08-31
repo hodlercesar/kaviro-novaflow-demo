@@ -84,17 +84,18 @@ export default function Home() {
           aria-labelledby="build-title"
         >
           <div>
-            <h2 id="build-title">Built by KAVIRO Studio</h2>
+            <h2 id="build-title">¿Tienes un proyecto en mente?</h2>
             <p>
-              Desarrollo web · React/Next.js · Landing pages · Arreglos y
-              mejoras · Integraciones
+              Cuéntanos qué necesitas. En KAVIRO Studio desarrollamos landing
+              pages, mejoras web, React/Next.js e integraciones con un alcance
+              claro desde el inicio.
             </p>
             <div style={{ marginTop: 16 }}>
               <a
-                href="mailto:empresakavirostudio@gmail.com?subject=Proyecto%20web%20con%20KAVIRO%20Studio"
+                href="mailto:empresakavirostudio@gmail.com?subject=Quiero%20hablar%20de%20mi%20proyecto%20con%20KAVIRO%20Studio"
                 className={styles.primary}
               >
-                Trabajar con KAVIRO <Icon name="arrow" size={16} />
+                Cuéntame qué necesitas <Icon name="arrow" size={16} />
               </a>
             </div>
           </div>
