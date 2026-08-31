@@ -33,10 +33,15 @@ const appearance = {
     headerSubtitle: styles.clerkSubtitle,
     socialButtonsBlockButton: styles.socialButton,
     formFieldInput: styles.input,
+    formFieldInputShowPasswordButton: styles.passwordToggle,
+    formFieldLabel: styles.fieldLabel,
     formButtonPrimary: styles.submit,
     footer: styles.clerkFooter,
     footerItem: styles.providerFooter,
-    footerActionLink: styles.authLink,
+    footerActionText: styles.footerText,
+    footerActionLink: `${styles.authLink} ${styles.footerLink}`,
+    dividerText: styles.dividerText,
+    dividerLine: styles.dividerLine,
     formFieldAction: styles.authLink,
     formFieldErrorText: "nf-auth-error",
     alert: "nf-auth-error",
@@ -44,7 +49,7 @@ const appearance = {
 };
 
 export default function AuthExperience({ mode = "sign-in" }) {
-  const { isSignedIn } = useAuth();
+  const { isLoaded, isSignedIn } = useAuth();
   const formRef = useRef(null);
   const [pose, setPose] = useState("idle");
   const [hasError, setHasError] = useState(false);
@@ -132,8 +137,15 @@ export default function AuthExperience({ mode = "sign-in" }) {
             pose={pose}
             feedback={isSignedIn ? "success" : hasError ? "error" : "idle"}
           />
-          <div ref={formRef} className={styles.formSlot}>
-            {mode === "sign-up" ? (
+          <div ref={formRef} className={styles.formSlot} aria-busy={!isLoaded}>
+            {!isLoaded ? (
+              <div className={styles.loading} role="status">
+                <span>Preparing your workspace…</span>
+                <div className={styles.loadingButton} aria-hidden="true" />
+                <div className={styles.loadingField} aria-hidden="true" />
+                <div className={styles.loadingButton} aria-hidden="true" />
+              </div>
+            ) : mode === "sign-up" ? (
               <SignUp
                 routing="path"
                 path="/sign-up"
@@ -160,3 +172,4 @@ export default function AuthExperience({ mode = "sign-in" }) {
     </main>
   );
 }
+
