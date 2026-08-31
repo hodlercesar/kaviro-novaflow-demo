@@ -52,3 +52,9 @@ select:focus-visible {
   background: #7158f5;
   color: #fff;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

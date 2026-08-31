@@ -44,7 +44,24 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <ClerkProvider>{children}</ClerkProvider>
+        <ClerkProvider
+          localization={{
+            signIn: {
+              start: {
+                title: "Welcome to NovaFlow",
+                subtitle: "A little focus. A clearer pipeline.",
+              },
+            },
+            signUp: {
+              start: {
+                title: "Your workspace awaits",
+                subtitle: "Create an account to explore NovaFlow.",
+              },
+            },
+          }}
+        >
+          {children}
+        </ClerkProvider>
       </body>
     </html>
   );

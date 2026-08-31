@@ -1,0 +1,32 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { getProductPreview } from "../lib/product-preview.mjs";
+import { seedDeals } from "../lib/demo-data.mjs";
+import { calculateForecast } from "../lib/novaflow.mjs";
+import { mascotPose } from "../lib/mascot-state.mjs";
+
+test("public preview shares exact fictional dashboard calculations", () => {
+  const before = JSON.stringify(seedDeals);
+  const preview = getProductPreview();
+  assert.deepEqual(preview.metrics, calculateForecast(seedDeals).metrics);
+  assert.equal(preview.metrics.weighted, 98190);
+  assert.deepEqual(
+    preview.priority.map((deal) => deal.id),
+    ["kepler-works", "atelier-cloud", "northstar-labs"],
+  );
+  assert.equal(JSON.stringify(seedDeals), before);
+  assert.equal(
+    preview.stageTotals.reduce((sum, stage) => sum + stage.value, 0),
+    200000,
+  );
+});
+
+test("mascot follows field metadata without credential values", () => {
+  assert.equal(mascotPose(), "idle");
+  assert.equal(mascotPose({ type: "text", name: "identifier" }), "email");
+  assert.equal(mascotPose({ type: "email" }), "email");
+  assert.equal(mascotPose({ type: "password" }), "shield");
+  assert.equal(mascotPose({ type: "text", name: "password" }), "peek");
+  assert.equal(mascotPose({ type: "text", id: "password-field" }), "peek");
+  assert.equal(mascotPose({ type: "tel", name: "code" }), "idle");
+});

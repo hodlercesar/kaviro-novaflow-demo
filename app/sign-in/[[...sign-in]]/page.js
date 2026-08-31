@@ -1,6 +1,4 @@
-import { SignIn } from "@clerk/nextjs";
-import Link from "next/link";
-import styles from "../../auth.module.css";
+import AuthExperience from "../../_components/AuthExperience";
 
 export const metadata = {
   title: "Sign in to NovaFlow",
@@ -8,61 +6,5 @@ export const metadata = {
 };
 
 export default function SignInPage() {
-  return (
-    <main className={styles.page}>
-      <section className={styles.story}>
-        <Link href="/" className={styles.brand}>
-          <span>N</span>NovaFlow
-        </Link>
-        <div className={styles.copy}>
-          <span className={styles.kicker}>KAVIRO Studio · Concept SaaS</span>
-          <h1>Explore a serious product demo.</h1>
-          <p>
-            Sign in to receive a private workspace seeded only with fictional
-            evaluation data. No client records, claims or results are used.
-          </p>
-          <div className={styles.proof}>
-            <span>Clerk authentication</span>
-            <span>User-scoped persistence</span>
-            <span>Responsive product UI</span>
-          </div>
-        </div>
-        <small>
-          Technical portfolio project · Built for transparent evaluation
-        </small>
-      </section>
-      <section className={styles.formPanel}>
-        <div className={styles.formIntro}>
-          <span className={styles.miniMark}>N</span>
-          <div>
-            <b>NovaFlow Workspace</b>
-            <small>Authenticated evaluation access</small>
-          </div>
-        </div>
-        <SignIn
-          routing="path"
-          path="/sign-in"
-          signUpUrl="/sign-up"
-          forceRedirectUrl="/demo"
-          appearance={{
-            variables: {
-              colorPrimary: "#7158f5",
-              colorBackground: "#ffffff",
-              colorText: "#131620",
-              colorInputBackground: "#f7f7fa",
-              colorInputText: "#131620",
-              borderRadius: "0.75rem",
-            },
-            elements: {
-              cardBox: { boxShadow: "none", width: "100%" },
-              card: { boxShadow: "none", border: 0, padding: 0 },
-            },
-          }}
-        />
-        <Link href="/" className={styles.backLink}>
-          ← Back to NovaFlow
-        </Link>
-      </section>
-    </main>
-  );
+  return <AuthExperience />;
 }

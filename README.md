@@ -20,6 +20,14 @@ Automations do **not** send email, run background jobs or use AI. Activity is a 
 
 Next.js 15 App Router · React 18 · JavaScript · CSS Modules · Clerk · Neon Postgres · Vercel.
 
+## Public experience
+
+The public home is a server-rendered, Spanish product introduction. Its preview uses `lib/product-preview.mjs` and the same fictional seed data and forecast rules as the dashboard; it never reads private workspace records. The authenticated workspace and Clerk flows remain in English.
+
+Sign-in and sign-up share `AuthExperience`. Nox, an original stylized lynx, is an inline SVG with CSS breathing/blinking, field-focus poses, covered eyes for passwords and a cautious peek when revealed. A scoped observer reads only field metadata and visible error state—never input values, keystrokes or credentials. Clerk handles submission, Google sign-in, verification, errors and redirection. The success reaction is opportunistic: it never delays navigation to `/demo`. Unknown Clerk markup falls back to a calm pose.
+
+Animations respect `prefers-reduced-motion`; the SVG reserves its dimensions. No animation or UI dependencies were added. Development-mode Clerk branding remains visible. Public pages, authentication pages, and dashboard retain separate styles and logic.
+
 ## Local setup
 
 Use Node.js 24 and the pnpm version in `package.json`.
@@ -38,7 +46,7 @@ The database client accepts `STORAGE_URL`, `DATABASE_URL`, `POSTGRES_URL`, or `N
 | ---------------------------- | --------------------------------------------------------- |
 | `app/page.js`                | Public product presentation                               |
 | `app/sign-in`, `app/sign-up` | Clerk authentication UI                                   |
-| `middleware.js`              | Clerk request/session context                            |
+| `middleware.js`              | Clerk request/session context                             |
 | `app/demo/layout.js`         | Server-side authentication gate                           |
 | `app/demo/page.js`           | Workspace shell and user interactions                     |
 | `app/demo/components`        | Focused dashboard views and accessible opportunity dialog |
