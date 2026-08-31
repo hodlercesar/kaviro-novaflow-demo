@@ -1358,11 +1358,13 @@
     backdrop-filter: blur(4px);
   }
   .sidebar {
+    visibility: hidden;
     transform: translateX(-103%);
     box-shadow: 18px 0 55px rgba(0, 0, 0, 0.5);
-    transition: 0.22s ease;
+    transition: transform 0.22s ease;
   }
   .sidebarOpen {
+    visibility: visible;
     transform: translateX(0);
   }
   .mainArea {
@@ -1424,5 +1426,14 @@
   .sectionIntro h2,
   .heroRow h2 {
     font-size: 23px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .appShell *,
+  .appShell *::before,
+  .appShell *::after {
+    animation: none !important;
+    transition: none !important;
   }
 }

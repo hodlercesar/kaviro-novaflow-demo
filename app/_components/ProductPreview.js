@@ -13,11 +13,15 @@ const money = (value) =>
   }).format(value);
 
 export default function ProductPreview() {
-  const { metrics, stageTotals, priority, activity, automation } =
+  const { metrics, stageTotals, priority, activity, automation, openCount } =
     getProductPreview();
   const maximum = Math.max(...stageTotals.map((stage) => stage.value), 1);
   const cards = [
-    ["Open pipeline", money(metrics.pipeline), "5 open opportunities"],
+    [
+      "Open pipeline",
+      money(metrics.pipeline),
+      `${openCount} open opportunities`,
+    ],
     ["Weighted forecast", money(metrics.weighted), "Probability-weighted"],
     ["At risk", `${metrics.atRisk} deal`, "Needs a next step"],
     ["Win potential", money(metrics.winPotential), "Proposal + negotiation"],

@@ -38,6 +38,8 @@ export default function DemoPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [notice, setNotice] = useState("");
   const searchRef = useRef(null);
+  const navRef = useRef(null);
+  const menuRef = useRef(null);
   const noticeTimer = useRef(null);
 
   const toast = useCallback((text) => {
@@ -47,6 +49,44 @@ export default function DemoPage() {
   }, []);
 
   useEffect(() => () => window.clearTimeout(noticeTimer.current), []);
+
+  useEffect(() => {
+    if (!mobileNav) return undefined;
+    const nav = navRef.current;
+    const menu = menuRef.current;
+    if (!nav) return undefined;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    nav.querySelector("button")?.focus();
+    function handleNavigationKey(event) {
+      if (event.key === "Escape") setMobileNav(false);
+      if (event.key !== "Tab") return;
+      const items = [
+        ...nav.querySelectorAll("a[href], button:not(:disabled)"),
+      ].filter((item) => item.getClientRects().length > 0);
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last?.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first?.focus();
+      }
+    }
+    const media = window.matchMedia("(max-width: 820px)");
+    const closeOnDesktop = () => {
+      if (!media.matches) setMobileNav(false);
+    };
+    media.addEventListener("change", closeOnDesktop);
+    nav.addEventListener("keydown", handleNavigationKey);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      nav.removeEventListener("keydown", handleNavigationKey);
+      media.removeEventListener("change", closeOnDesktop);
+      menu?.focus();
+    };
+  }, [mobileNav]);
 
   useEffect(() => {
     function handleShortcut(event) {
@@ -163,10 +203,13 @@ export default function DemoPage() {
           type="button"
           className={styles.navBackdrop}
           onClick={() => setMobileNav(false)}
-          aria-label="Close navigation"
+          aria-label="Dismiss navigation"
+          tabIndex={-1}
         />
       )}
       <aside
+        ref={navRef}
+        id="workspace-navigation"
         className={`${styles.sidebar} ${mobileNav ? styles.sidebarOpen : ""}`}
       >
         <div className={styles.sideTop}>
@@ -253,8 +296,11 @@ export default function DemoPage() {
             <button
               type="button"
               className={styles.menuButton}
+              ref={menuRef}
               onClick={() => setMobileNav(true)}
               aria-label="Open navigation"
+              aria-controls="workspace-navigation"
+              aria-expanded={mobileNav}
             >
               <Icon name="menu" />
             </button>
