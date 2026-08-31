@@ -26,6 +26,13 @@ test("risk scoring uses inactivity and probability", () => {
   assert.equal(riskFor({ daysIdle: 1, probability: 80 }), "Low");
 });
 
+test("closed won opportunities are never reported as at risk", () => {
+  assert.equal(
+    riskFor({ stage: "Won", daysIdle: 30, probability: 5 }),
+    "Low",
+  );
+});
+
 test("validation strips unknown properties and rejects invalid records", () => {
   const [seed] = cloneSeedDeals();
   assert.deepEqual(normalizeDeal({ ...seed, secret: "not persisted" }), seed);
