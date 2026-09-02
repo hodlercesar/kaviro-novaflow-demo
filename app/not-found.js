@@ -6,14 +6,14 @@ export default function NotFound() {
     <main className={styles.page}>
       <section className={styles.card}>
         <div className={styles.mark}>N</div>
-        <h1>Page not found.</h1>
+        <h1>Página no encontrada.</h1>
         <p>
-          The requested NovaFlow route does not exist. The public concept and
-          private demo workspace are still available.
+          La ruta solicitada de NovaFlow no existe. La presentación pública y
+          el espacio privado de demo siguen disponibles.
         </p>
         <div className={styles.actions}>
-          <Link href="/">Return home</Link>
-          <Link href="/demo">Open demo</Link>
+          <Link href="/">Volver al inicio</Link>
+          <Link href="/demo">Abrir demo</Link>
         </div>
       </section>
     </main>
