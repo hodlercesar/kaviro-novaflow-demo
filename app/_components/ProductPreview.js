@@ -2,11 +2,17 @@ import Link from "next/link";
 import Icon from "../demo/components/Icon";
 import { getProductPreview } from "../../lib/product-preview.mjs";
 import { riskFor } from "../../lib/novaflow.mjs";
+import {
+  activityLabel,
+  relativeTimeLabel,
+  riskLabel,
+  stageLabel,
+} from "../../lib/ui-labels.mjs";
 import Brand from "./Brand";
 import styles from "../home.module.css";
 
 const money = (value) =>
-  new Intl.NumberFormat("en-US", {
+  new Intl.NumberFormat("es-CL", {
     style: "currency",
     currency: "USD",
     maximumFractionDigits: 0,
@@ -18,13 +24,21 @@ export default function ProductPreview() {
   const maximum = Math.max(...stageTotals.map((stage) => stage.value), 1);
   const cards = [
     [
-      "Open pipeline",
+      "Pipeline abierto",
       money(metrics.pipeline),
-      `${openCount} open opportunities`,
+      `${openCount} oportunidades abiertas`,
     ],
-    ["Weighted forecast", money(metrics.weighted), "Probability-weighted"],
-    ["At risk", `${metrics.atRisk} deal`, "Needs a next step"],
-    ["Late-stage value", money(metrics.winPotential), "Proposal + negotiation"],
+    ["Pronóstico ponderado", money(metrics.weighted), "Según probabilidad"],
+    [
+      "En riesgo",
+      `${metrics.atRisk} ${metrics.atRisk === 1 ? "oportunidad" : "oportunidades"}`,
+      "Requiere un siguiente paso",
+    ],
+    [
+      "Valor en etapa avanzada",
+      money(metrics.winPotential),
+      "Propuesta + negociación",
+    ],
   ];
 
   return (
@@ -36,23 +50,23 @@ export default function ProductPreview() {
           <i />
         </span>
         <span>
-          NovaFlow <span className={styles.framePath}>/ workspace</span>
+          NovaFlow <span className={styles.framePath}>/ espacio</span>
         </span>
-        <span className={styles.sampleBadge}>Fictional dataset</span>
+        <span aria-hidden="true" />
       </div>
-      <div className={styles.workspace} lang="en">
+      <div className={styles.workspace} lang="es">
         <aside
           className={styles.sidebar}
-          aria-label="Preview navigation (non-interactive)"
+          aria-label="Navegación de vista previa, no interactiva"
         >
           <Brand className={styles.previewBrand} />
-          <span className={styles.sideLabel}>WORKSPACE</span>
+          <span className={styles.sideLabel}>ESPACIO</span>
           {[
-            ["grid", "Overview"],
+            ["grid", "Resumen"],
             ["pipeline", "Pipeline"],
-            ["bolt", "Automations"],
-            ["chart", "Reports"],
-            ["users", "Team"],
+            ["bolt", "Automatizaciones"],
+            ["chart", "Informes"],
+            ["users", "Equipo"],
           ].map(([icon, title], i) => (
             <span
               key={title}
@@ -66,17 +80,17 @@ export default function ProductPreview() {
           <div className={styles.sideFoot}>
             <span className={styles.sampleAvatar}>D</span>
             <span>
-              Demo workspace<small>Concept demo</small>
+              Espacio de muestra<small>KAVIRO Studio</small>
             </span>
           </div>
         </aside>
         <div className={styles.previewMain}>
           <div className={styles.previewHeader}>
             <div>
-              <h2>Overview</h2>
+              <h2>Resumen</h2>
             </div>
             <Link href="/demo" className={styles.previewAction}>
-              Open workspace
+              Abrir espacio
               <Icon name="arrow" size={14} />
             </Link>
           </div>
@@ -98,10 +112,10 @@ export default function ProductPreview() {
           <div className={styles.previewGrid}>
             <section
               className={styles.panel}
-              aria-label="Fictional pipeline by stage"
+              aria-label="Pipeline ficticio por etapa"
             >
               <div className={styles.panelHead}>
-                <h3>Pipeline distribution</h3>
+                <h3>Distribución del pipeline</h3>
                 <span>USD</span>
               </div>
               <div className={styles.chart}>
@@ -118,18 +132,20 @@ export default function ProductPreview() {
                         <span>{money(value)}</span>
                       </div>
                     </div>
-                    <small>{stage}</small>
+                    <small>{stageLabel(stage)}</small>
                   </div>
                 ))}
               </div>
             </section>
             <section
               className={styles.panel}
-              aria-label="Fictional opportunity priorities"
+              aria-label="Prioridades ficticias de oportunidades"
             >
               <div className={styles.panelHead}>
-                <h3>Needs attention</h3>
-                <Icon name="target" size={16} />
+                <h3>Requiere atención</h3>
+                <Link href="/demo?view=Pipeline" className={styles.previewAction}>
+                  Ver todas <Icon name="arrow" size={13} />
+                </Link>
               </div>
               <div className={styles.queue}>
                 {priority.map((deal) => (
@@ -144,7 +160,8 @@ export default function ProductPreview() {
                     <div>
                       <strong>{deal.company}</strong>
                       <small>
-                        {deal.stage} · {riskFor(deal).toLowerCase()} risk
+                        {stageLabel(deal.stage)} · riesgo{" "}
+                        {riskLabel(riskFor(deal)).toLowerCase()}
                       </small>
                     </div>
                     <b>{money(deal.value)}</b>
@@ -155,13 +172,12 @@ export default function ProductPreview() {
           </div>
           <div className={styles.previewBottom}>
             <section className={styles.activity}>
-              <h3>
-                Recent activity <span>Sample</span>
-              </h3>
+              <h3>Actividad reciente</h3>
               {activity.map((item) => (
                 <p key={item.id}>
                   <span className={styles.activityDot} />
-                  {item.text}
+                  {activityLabel(item.text)}{" "}
+                  <small>· {relativeTimeLabel(item.time)}</small>
                 </p>
               ))}
             </section>
@@ -171,8 +187,8 @@ export default function ProductPreview() {
               </span>
               <div>
                 <h3>{automation.name}</h3>
-                <p>7+ days idle → priority queue</p>
-                <span>Workflow simulation</span>
+                <p>7+ días sin actividad → cola prioritaria</p>
+                <span>Simulación de flujo</span>
               </div>
             </section>
           </div>
