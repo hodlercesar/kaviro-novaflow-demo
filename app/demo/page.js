@@ -4,6 +4,7 @@ import { useClerk, useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { MAX_DEALS, STAGES, riskFor } from "../../lib/novaflow.mjs";
+import { stageLabel } from "../../lib/ui-labels.mjs";
 import styles from "./demo.module.css";
 import Icon from "./components/Icon";
 import NewOpportunityModal from "./components/NewOpportunityModal";
@@ -19,13 +20,17 @@ import { initials } from "./components/Ui";
 import { useWorkspace } from "./useWorkspace";
 
 const navItems = [
-  ["Overview", "grid"],
-  ["Pipeline", "pipeline"],
-  ["Automations", "bolt"],
-  ["Reports", "chart"],
-  ["Team", "users"],
-  ["Settings", "settings"],
+  ["Overview", "Resumen", "grid"],
+  ["Pipeline", "Pipeline", "pipeline"],
+  ["Automations", "Automatizaciones", "bolt"],
+  ["Reports", "Informes", "chart"],
+  ["Team", "Equipo", "users"],
+  ["Settings", "Ajustes", "settings"],
 ];
+
+function viewLabel(view) {
+  return navItems.find(([key]) => key === view)?.[1] || view;
+}
 
 export default function DemoPage() {
   const { isLoaded, user } = useUser();
@@ -49,6 +54,13 @@ export default function DemoPage() {
   }, []);
 
   useEffect(() => () => window.clearTimeout(noticeTimer.current), []);
+
+  useEffect(() => {
+    const requestedView = new URLSearchParams(window.location.search).get("view");
+    if (navItems.some(([key]) => key === requestedView)) {
+      setActiveView(requestedView);
+    }
+  }, []);
 
   useEffect(() => {
     if (!mobileNav) return undefined;
@@ -115,13 +127,15 @@ export default function DemoPage() {
   function addOpportunity(item) {
     if (workspace.deals.length >= MAX_DEALS) {
       toast(
-        `This evaluation workspace supports up to ${MAX_DEALS} opportunities.`,
+        `Este espacio de evaluación admite hasta ${MAX_DEALS} oportunidades.`,
       );
       return false;
     }
     workspace.setDeals((current) => [item, ...current]);
-    workspace.addActivity(`${item.company} created in ${item.stage}`);
-    toast("Fictional opportunity created");
+    workspace.addActivity(
+      `${item.company} se creó en ${stageLabel(item.stage).toLowerCase()}`,
+    );
+    toast("Oportunidad ficticia creada");
     return true;
   }
 
@@ -143,8 +157,10 @@ export default function DemoPage() {
           : deal,
       ),
     );
-    workspace.addActivity(`${target.company} advanced to ${nextStage}`);
-    toast(`${target.company} → ${nextStage}`);
+    workspace.addActivity(
+      `${target.company} avanzó a ${stageLabel(nextStage).toLowerCase()}`,
+    );
+    toast(`${target.company} → ${stageLabel(nextStage)}`);
   }
 
   function toggleAutomation(id) {
@@ -159,40 +175,40 @@ export default function DemoPage() {
           : automation,
       ),
     );
-    toast("Automation simulation updated");
+    toast("Simulación de automatización actualizada");
   }
 
   function resetWorkspace() {
     if (
       !window.confirm(
-        "Reset this private workspace to the fictional NovaFlow baseline?",
+        "¿Restablecer este espacio privado a la base ficticia de NovaFlow?",
       )
     )
       return;
     workspace.resetWorkspace();
-    toast("Fictional workspace reset");
+    toast("Espacio ficticio restablecido");
   }
 
   if (!isLoaded || !workspace.hydrated) {
     return (
       <main className={styles.loading}>
         <div className={styles.loaderMark}>N</div>
-        <p>Preparing your private demo workspace</p>
+        <p>Preparando tu espacio privado de demo</p>
       </main>
     );
   }
 
-  const userName = user?.firstName || user?.username || "there";
+  const userName = user?.firstName || user?.username || "evaluador";
   const userLabel =
     user?.fullName ||
     user?.primaryEmailAddress?.emailAddress ||
-    "Signed-in evaluator";
+    "Evaluador autenticado";
   const userInitials = initials(
     user?.fullName || user?.primaryEmailAddress?.emailAddress || "NovaFlow",
   );
 
   return (
-    <main className={styles.appShell}>
+    <main className={styles.appShell} lang="es">
       {notice && (
         <div className={styles.toast} role="status" aria-live="polite">
           <Icon name="check" size={15} />
@@ -204,7 +220,7 @@ export default function DemoPage() {
           type="button"
           className={styles.navBackdrop}
           onClick={() => setMobileNav(false)}
-          aria-label="Dismiss navigation"
+          aria-label="Cerrar navegación"
           tabIndex={-1}
         />
       )}
@@ -223,7 +239,7 @@ export default function DemoPage() {
             type="button"
             className={styles.mobileClose}
             onClick={() => setMobileNav(false)}
-            aria-label="Close navigation"
+            aria-label="Cerrar navegación"
           >
             <Icon name="close" />
           </button>
@@ -232,25 +248,25 @@ export default function DemoPage() {
           <span className={styles.workspaceAvatar}>KS</span>
           <div>
             <b>KAVIRO Studio</b>
-            <small>Concept revenue workspace</small>
+            <small>Espacio conceptual de ingresos</small>
           </div>
         </div>
-        <nav className={styles.nav} aria-label="Workspace navigation">
-          <span className={styles.navLabel}>Workspace</span>
-          {navItems.map(([label, icon]) => (
+        <nav className={styles.nav} aria-label="Navegación del espacio">
+          <span className={styles.navLabel}>ESPACIO</span>
+          {navItems.map(([key, label, icon]) => (
             <button
               type="button"
-              key={label}
+              key={key}
               onClick={() => {
-                setActiveView(label);
+                setActiveView(key);
                 setMobileNav(false);
               }}
-              className={activeView === label ? styles.navActive : ""}
-              aria-current={activeView === label ? "page" : undefined}
+              className={activeView === key ? styles.navActive : ""}
+              aria-current={activeView === key ? "page" : undefined}
             >
               <Icon name={icon} />
               <span>{label}</span>
-              {label === "Automations" && (
+              {key === "Automations" && (
                 <i>
                   {
                     workspace.automations.filter(
@@ -267,23 +283,24 @@ export default function DemoPage() {
             <div>
               <Icon name="shield" size={16} />
             </div>
-            <b>Evaluation environment</b>
+            <b>Entorno de evaluación</b>
             <p>
-              All company names, people and opportunity values are fictional.
+              Todos los nombres de empresas, personas y valores de oportunidades
+              son ficticios.
             </p>
-            <span>Technical concept demo</span>
+            <span>Demo conceptual técnica</span>
           </div>
           <div className={styles.profile}>
             <span className={styles.avatar}>{userInitials}</span>
             <div>
               <b>{userLabel}</b>
-              <small>Authenticated with Clerk</small>
+              <small>Autenticado con Clerk</small>
             </div>
             <button
               type="button"
               onClick={() => signOut({ redirectUrl: "/" })}
-              aria-label="Sign out"
-              title="Sign out"
+              aria-label="Cerrar sesión"
+              title="Cerrar sesión"
             >
               <Icon name="logout" />
             </button>
@@ -299,7 +316,7 @@ export default function DemoPage() {
               className={styles.menuButton}
               ref={menuRef}
               onClick={() => setMobileNav(true)}
-              aria-label="Open navigation"
+              aria-label="Abrir navegación"
               aria-controls="workspace-navigation"
               aria-expanded={mobileNav}
             >
@@ -307,9 +324,9 @@ export default function DemoPage() {
             </button>
             <div>
               <span className={styles.breadcrumb}>
-                Workspace / {activeView}
+                Espacio / {viewLabel(activeView)}
               </span>
-              <h1>{activeView}</h1>
+              <h1>{viewLabel(activeView)}</h1>
             </div>
           </div>
           <div className={styles.topActions}>
@@ -324,7 +341,7 @@ export default function DemoPage() {
             </span>
             <label className={styles.globalSearch}>
               <Icon name="search" size={16} />
-              <span className={styles.srOnly}>Search workspace</span>
+              <span className={styles.srOnly}>Buscar en el espacio</span>
               <input
                 ref={searchRef}
                 value={query}
@@ -332,15 +349,15 @@ export default function DemoPage() {
                   setQuery(event.target.value);
                   if (event.target.value) setActiveView("Pipeline");
                 }}
-                placeholder="Search workspace"
+                placeholder="Buscar en el espacio"
               />
               <kbd>⌘ K</kbd>
             </label>
             <button
               type="button"
               className={styles.iconButton}
-              onClick={() => toast("No new demo alerts")}
-              aria-label="View notifications"
+              onClick={() => toast("No hay nuevas alertas de demo")}
+              aria-label="Ver notificaciones"
             >
               <Icon name="bell" />
             </button>
@@ -349,7 +366,7 @@ export default function DemoPage() {
               className={styles.addButton}
               onClick={() => setModalOpen(true)}
             >
-              <Icon name="plus" size={16} /> New opportunity
+              <Icon name="plus" size={16} /> Nueva oportunidad
             </button>
           </div>
         </header>
