@@ -2,6 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { comparePriority, riskFor } from "../../../lib/novaflow.mjs";
+import {
+  activityLabel,
+  relativeTimeLabel,
+  riskLabel,
+  stageLabel,
+} from "../../../lib/ui-labels.mjs";
 import styles from "../demo.module.css";
 import Icon from "./Icon";
 import { DealRow, Metric, money, PanelHead } from "./Ui";
@@ -47,18 +53,18 @@ export function Overview({
       <section className={styles.heroRow}>
         <div>
           <span className={styles.eyebrow}>
-            Fictional evaluation workspace · Live interactions
+            Espacio ficticio de evaluación · Interacciones reales
           </span>
-          <h2>Welcome, {userName}.</h2>
+          <h2>Hola, {userName}.</h2>
           <p>
             {metrics.atRisk
-              ? `${metrics.atRisk} opportunity needs attention in this simulated pipeline.`
-              : "The simulated pipeline has no high-risk opportunities right now."}
+              ? `${metrics.atRisk} ${metrics.atRisk === 1 ? "oportunidad requiere" : "oportunidades requieren"} atención en este pipeline simulado.`
+              : "El pipeline simulado no tiene oportunidades de alto riesgo ahora mismo."}
           </p>
         </div>
         <div
           className={styles.healthBadge}
-          aria-label={`Simulated pipeline health score ${health} out of 100`}
+          aria-label={`Puntuación simulada de salud del pipeline: ${health} de 100`}
         >
           <span
             className={styles.healthRing}
@@ -67,42 +73,42 @@ export function Overview({
             <span>{health}</span>
           </span>
           <div>
-            <b>Demo health score</b>
-            <small>Derived from risk + inactivity</small>
+            <b>Salud de la demo</b>
+            <small>Calculada por riesgo + inactividad</small>
           </div>
         </div>
       </section>
       <section className={styles.kpiGrid}>
         <Metric
           icon="pipeline"
-          label="Open pipeline"
+          label="Pipeline abierto"
           value={money(metrics.pipeline)}
-          delta="Live"
-          subtitle="fictional opportunity value"
+          delta="En vivo"
+          subtitle="valor ficticio de oportunidades"
           points="2,22 13,18 24,20 36,11 49,14 62,6"
         />
         <Metric
           icon="target"
-          label="Weighted forecast"
+          label="Pronóstico ponderado"
           value={money(metrics.weighted)}
           delta={forecastSource}
-          subtitle="probability adjusted"
+          subtitle="ajustado por probabilidad"
           points="2,23 14,20 26,12 38,15 50,8 62,5"
         />
         <Metric
           icon="trend"
-          label="Late-stage value"
+          label="Valor en etapa avanzada"
           value={money(metrics.winPotential)}
-          delta={`${lateStage.length} deals`}
-          subtitle="proposal + negotiation"
+          delta={`${lateStage.length} ${lateStage.length === 1 ? "oportunidad" : "oportunidades"}`}
+          subtitle="propuesta + negociación"
           points="2,21 14,15 26,17 38,12 50,9 62,9"
         />
         <Metric
           icon="clock"
-          label="Deals at risk"
+          label="Oportunidades en riesgo"
           value={String(metrics.atRisk)}
-          delta={metrics.atRisk ? "Review" : "All clear"}
-          subtitle="based on age + confidence"
+          delta={metrics.atRisk ? "Revisar" : "Todo en orden"}
+          subtitle="según antigüedad + confianza"
           danger={Boolean(metrics.atRisk)}
           points="2,8 14,10 26,8 38,19 50,15 62,20"
         />
@@ -110,18 +116,18 @@ export function Overview({
       <section className={styles.dashboardGrid}>
         <div className={styles.panelLarge}>
           <PanelHead
-            title="Revenue pipeline"
-            caption="Fictional value by stage"
-            action="View pipeline"
+            title="Pipeline de ingresos"
+            caption="Valor ficticio por etapa"
+            action="Ver pipeline"
             onClick={onOpenPipeline}
           />
           <div className={styles.stageChart}>
             {stageTotals.map((stage) => (
               <div key={stage.stage} className={styles.stageRow}>
                 <div className={styles.stageName}>
-                  <span>{stage.stage}</span>
+                  <span>{stageLabel(stage.stage)}</span>
                   <small>
-                    {stage.count} {stage.count === 1 ? "deal" : "deals"}
+                    {stage.count} {stage.count === 1 ? "oportunidad" : "oportunidades"}
                   </small>
                 </div>
                 <div className={styles.barTrack}>
@@ -137,23 +143,23 @@ export function Overview({
           </div>
           <div className={styles.chartFooter}>
             <div>
-              <span>Late-stage share</span>
+              <span>Participación avanzada</span>
               <b>{conversion}%</b>
             </div>
             <div>
-              <span>Average deal size</span>
+              <span>Valor promedio</span>
               <b>{money(averageDeal)}</b>
             </div>
             <div>
-              <span>Average inactivity</span>
-              <b>{averageIdle} days</b>
+              <span>Inactividad promedio</span>
+              <b>{averageIdle} {averageIdle === 1 ? "día" : "días"}</b>
             </div>
           </div>
         </div>
         <div className={styles.panel}>
           <PanelHead
-            title="Activity"
-            caption="Latest simulated workspace events"
+            title="Actividad"
+            caption="Últimos eventos simulados del espacio"
           />
           <div className={styles.activityList}>
             {activity.slice(0, 5).map((item, index) => (
@@ -162,8 +168,8 @@ export function Overview({
                   {index === 0 ? <Icon name="bolt" size={12} /> : ""}
                 </span>
                 <p>
-                  {item.text}
-                  <small>{item.time}</small>
+                  {activityLabel(item.text)}
+                  <small>{relativeTimeLabel(item.time)}</small>
                 </p>
               </div>
             ))}
@@ -172,9 +178,9 @@ export function Overview({
       </section>
       <section className={styles.panel}>
         <PanelHead
-          title="Priority opportunities"
-          caption="Ranked by risk, then fictional value"
-          action="Open pipeline"
+          title="Oportunidades prioritarias"
+          caption="Ordenadas por riesgo y luego por valor ficticio"
+          action="Abrir pipeline"
           onClick={onOpenPipeline}
         />
         <OpportunityTable deals={priority} onAdvance={onAdvance} />
@@ -187,11 +193,11 @@ function OpportunityTable({ deals, onAdvance }) {
   return (
     <div className={styles.opportunityTable}>
       <div className={styles.tableHead}>
-        <span>Account</span>
-        <span>Stage</span>
-        <span>Value</span>
-        <span>Risk</span>
-        <span>Next step</span>
+        <span>Cuenta</span>
+        <span>Etapa</span>
+        <span>Valor</span>
+        <span>Riesgo</span>
+        <span>Siguiente paso</span>
         <span />
       </div>
       {deals.map((deal) => (
@@ -202,26 +208,33 @@ function OpportunityTable({ deals, onAdvance }) {
 }
 
 export function Pipeline({ deals, riskFilter, setRiskFilter, onAdvance }) {
+  const riskOptions = [
+    ["All", "Todos"],
+    ["High", "Alto"],
+    ["Medium", "Medio"],
+    ["Low", "Bajo"],
+  ];
+
   return (
     <section className={styles.panel}>
       <div className={styles.pipelineHeader}>
         <div>
-          <span className={styles.eyebrow}>Fictional opportunity data</span>
-          <h2>Opportunity pipeline</h2>
-          <p>Search, filter and advance the evaluation dataset.</p>
+          <span className={styles.eyebrow}>Datos ficticios de oportunidades</span>
+          <h2>Pipeline de oportunidades</h2>
+          <p>Busca, filtra y avanza registros del conjunto de evaluación.</p>
         </div>
         <div
           className={styles.filterTabs}
-          aria-label="Filter opportunities by risk"
+          aria-label="Filtrar oportunidades por riesgo"
         >
-          {["All", "High", "Medium", "Low"].map((risk) => (
+          {riskOptions.map(([risk, label]) => (
             <button
               type="button"
               key={risk}
               className={riskFilter === risk ? styles.filterActive : ""}
               onClick={() => setRiskFilter(risk)}
             >
-              {risk}
+              {label}
             </button>
           ))}
         </div>
@@ -230,8 +243,8 @@ export function Pipeline({ deals, riskFilter, setRiskFilter, onAdvance }) {
       {deals.length === 0 && (
         <div className={styles.emptyState}>
           <Icon name="search" size={28} />
-          <h3>No opportunities found</h3>
-          <p>Try a different search term or risk filter.</p>
+          <h3>No se encontraron oportunidades</h3>
+          <p>Prueba otro término de búsqueda o filtro de riesgo.</p>
         </div>
       )}
     </section>
@@ -245,11 +258,11 @@ export function Automations({ items, toggle }) {
   return (
     <>
       <section className={styles.sectionIntro}>
-        <span className={styles.eyebrow}>Simulated workflow engine</span>
-        <h2>Explore automation behavior.</h2>
+        <span className={styles.eyebrow}>Motor de flujos simulado</span>
+        <h2>Explora el comportamiento de las automatizaciones.</h2>
         <p>
-          These rules are interactive product simulations. They do not contact
-          customers or external systems.
+          Estas reglas son simulaciones interactivas del producto. No contactan
+          clientes ni sistemas externos.
         </p>
       </section>
       <div className={styles.automationGrid}>
@@ -261,20 +274,20 @@ export function Automations({ items, toggle }) {
             <div className={styles.automationBody}>
               <div>
                 <span className={styles.automationStatus}>
-                  {item.enabled ? "Active simulation" : "Paused"}
+                  {item.enabled ? "Simulación activa" : "Pausada"}
                 </span>
                 <h3>{item.name}</h3>
                 <p>{item.detail}</p>
               </div>
               <div className={styles.automationFoot}>
                 <span>
-                  <b>{item.runs}</b> simulated runs
+                  <b>{item.runs}</b> ejecuciones simuladas
                 </span>
                 <button
                   type="button"
                   onClick={() => toggle(item.id)}
                   className={`${styles.toggle} ${item.enabled ? styles.toggleOn : ""}`}
-                  aria-label={`${item.enabled ? "Pause" : "Enable"} ${item.name}`}
+                  aria-label={`${item.enabled ? "Pausar" : "Activar"} ${item.name}`}
                   aria-pressed={item.enabled}
                 >
                   <i />
@@ -286,25 +299,25 @@ export function Automations({ items, toggle }) {
       </div>
       <section className={styles.panel}>
         <PanelHead
-          title="Simulation summary"
-          caption="Calculated from the fictional workflow dataset"
+          title="Resumen de simulación"
+          caption="Calculado a partir del conjunto ficticio de flujos"
         />
         <div className={styles.performanceRow}>
           <div>
             <b>{totalRuns}</b>
-            <span>simulated executions</span>
+            <span>ejecuciones simuladas</span>
           </div>
           <div>
             <b>{hours}h</b>
-            <span>estimated manual effort</span>
+            <span>esfuerzo manual estimado</span>
           </div>
           <div>
             <b>{active}</b>
-            <span>active simulations</span>
+            <span>simulaciones activas</span>
           </div>
           <div>
             <b>{items.length}</b>
-            <span>configured rules</span>
+            <span>reglas configuradas</span>
           </div>
         </div>
       </section>
@@ -320,7 +333,7 @@ function FxPanel() {
       .then((response) =>
         response.ok
           ? response.json()
-          : Promise.reject(new Error("Provider unavailable")),
+          : Promise.reject(new Error("Proveedor no disponible")),
       )
       .then((data) => setFx({ state: "ready", data }))
       .catch((error) => {
@@ -332,25 +345,25 @@ function FxPanel() {
   return (
     <div className={styles.panel}>
       <PanelHead
-        title="Reference exchange rates"
-        caption="Live public market reference from Frankfurter"
+        title="Tipos de cambio de referencia"
+        caption="Referencia pública en vivo desde Frankfurter"
       />
       {fx.state === "loading" && (
-        <p className={styles.integrationState}>Loading reference rates…</p>
+        <p className={styles.integrationState}>Cargando tipos de referencia…</p>
       )}
       {fx.state === "error" && (
         <p className={styles.integrationState}>
-          Market reference is temporarily unavailable. Core demo data remains
-          unchanged.
+          La referencia de mercado no está disponible temporalmente. Los datos
+          principales de la demo no cambian.
         </p>
       )}
       {fx.state === "ready" && (
         <div className={styles.forecastSummary}>
           {Object.entries(fx.data.rates).map(([currency, rate]) => (
             <div key={currency}>
-              <span>1 USD in {currency}</span>
+              <span>1 USD en {currency}</span>
               <b>
-                {new Intl.NumberFormat("en-US", {
+                {new Intl.NumberFormat("es-CL", {
                   maximumFractionDigits: currency === "CLP" ? 0 : 3,
                 }).format(rate)}
               </b>
@@ -358,13 +371,14 @@ function FxPanel() {
             </div>
           ))}
           <div>
-            <span>Oldest reference</span>
+            <span>Referencia más antigua</span>
             <b>{fx.data.date}</b>
           </div>
         </div>
       )}
       <p className={styles.panelDisclaimer}>
-        Reference only. NovaFlow does not present this as financial advice.
+        Solo como referencia. NovaFlow no presenta estos datos como asesoría
+        financiera.
       </p>
     </div>
   );
@@ -383,24 +397,24 @@ export function Reports({ deals, stageTotals }) {
   return (
     <>
       <section className={styles.sectionIntro}>
-        <span className={styles.eyebrow}>Fictional revenue intelligence</span>
-        <h2>Forecast with context.</h2>
+        <span className={styles.eyebrow}>Inteligencia de ingresos ficticia</span>
+        <h2>Proyecta con contexto.</h2>
         <p>
-          All opportunity values are evaluation fixtures. Live FX data is
-          clearly separated below.
+          Todos los valores de oportunidades son datos de evaluación. Los tipos
+          de cambio en vivo se muestran por separado.
         </p>
       </section>
       <div className={styles.reportGrid}>
         <div className={styles.panelLarge}>
           <PanelHead
-            title="Pipeline distribution"
-            caption="Fictional value across each sales stage"
+            title="Distribución del pipeline"
+            caption="Valor ficticio en cada etapa comercial"
           />
           <div className={styles.bigBars}>
             {stageTotals.map((stage) => (
               <div key={stage.stage}>
                 <div>
-                  <span>{stage.stage}</span>
+                  <span>{stageLabel(stage.stage)}</span>
                   <b>{money(stage.value)}</b>
                 </div>
                 <div>
@@ -416,16 +430,16 @@ export function Reports({ deals, stageTotals }) {
         </div>
         <div className={styles.panel}>
           <PanelHead
-            title="Forecast summary"
-            caption="Current evaluation dataset"
+            title="Resumen del pronóstico"
+            caption="Conjunto actual de evaluación"
           />
           <div className={styles.forecastSummary}>
             <div>
-              <span>Closed won</span>
+              <span>Ganado cerrado</span>
               <b>{money(won)}</b>
             </div>
             <div>
-              <span>Open value</span>
+              <span>Valor abierto</span>
               <b>
                 {money(
                   deals
@@ -435,11 +449,11 @@ export function Reports({ deals, stageTotals }) {
               </b>
             </div>
             <div>
-              <span>Average probability</span>
+              <span>Probabilidad promedio</span>
               <b>{averageProbability}%</b>
             </div>
             <div>
-              <span>At-risk value</span>
+              <span>Valor en riesgo</span>
               <b>
                 {money(
                   deals
@@ -458,18 +472,18 @@ export function Reports({ deals, stageTotals }) {
 
 export function Team({ deals }) {
   const team = [
-    { id: "KM", name: "Kira Miles", role: "Revenue Lead" },
-    { id: "AR", name: "Alex Rowan", role: "Account Executive" },
-    { id: "LS", name: "Lena Shaw", role: "Solutions Lead" },
+    { id: "KM", name: "Kira Miles", role: "Líder de ingresos" },
+    { id: "AR", name: "Alex Rowan", role: "Ejecutivo de cuentas" },
+    { id: "LS", name: "Lena Shaw", role: "Líder de soluciones" },
   ];
   return (
     <>
       <section className={styles.sectionIntro}>
-        <span className={styles.eyebrow}>Fictional demo team</span>
-        <h2>One pipeline, clear ownership.</h2>
+        <span className={styles.eyebrow}>Equipo ficticio de demo</span>
+        <h2>Un pipeline, responsables claros.</h2>
         <p>
-          These personas exist only to demonstrate assignment and collaboration
-          UI.
+          Estas personas existen solo para demostrar la interfaz de asignación y
+          colaboración.
         </p>
       </section>
       <div className={styles.teamGrid}>
@@ -481,25 +495,25 @@ export function Team({ deals }) {
             <article key={member.id} className={styles.memberCard}>
               <div className={styles.memberTop}>
                 <span className={styles.memberAvatar}>{member.id}</span>
-                <span className={styles.demoBadge}>Demo persona</span>
+                <span className={styles.demoBadge}>Persona ficticia</span>
               </div>
               <h3>{member.name}</h3>
               <p>{member.role}</p>
               <div className={styles.memberStats}>
                 <div>
                   <b>{mine.length}</b>
-                  <span>open deals</span>
+                  <span>oportunidades abiertas</span>
                 </div>
                 <div>
                   <b>
                     {money(mine.reduce((sum, deal) => sum + deal.value, 0))}
                   </b>
-                  <span>fictional pipeline</span>
+                  <span>pipeline ficticio</span>
                 </div>
               </div>
               <div className={styles.memberFooter}>
-                <span className={styles.onlineDot} /> Included in evaluation
-                data
+                <span className={styles.onlineDot} /> Incluido en los datos de
+                evaluación
               </div>
             </article>
           );
@@ -513,34 +527,34 @@ export function Settings({ preferences, setPreferences, sync, onReset }) {
   const rows = [
     [
       "weekly",
-      "Weekly forecast digest",
-      "A simulated summary preference for the evaluation workspace.",
+      "Resumen semanal del pronóstico",
+      "Preferencia simulada de resumen para el espacio de evaluación.",
     ],
     [
       "risk",
-      "Risk alerts",
-      "Surface high-risk opportunities when age or confidence crosses a threshold.",
+      "Alertas de riesgo",
+      "Destaca oportunidades de alto riesgo cuando la antigüedad o confianza cruza un umbral.",
     ],
     [
       "activity",
-      "Activity summaries",
-      "Bundle low-priority simulated events into a daily digest.",
+      "Resúmenes de actividad",
+      "Agrupa eventos simulados de baja prioridad en un resumen diario.",
     ],
   ];
   return (
     <>
       <section className={styles.sectionIntro}>
-        <span className={styles.eyebrow}>Workspace controls</span>
-        <h2>Clear, reversible demo settings.</h2>
+        <span className={styles.eyebrow}>Controles del espacio</span>
+        <h2>Ajustes de demo claros y reversibles.</h2>
         <p>
-          Preferences are scoped to this signed-in browser. Opportunity data
-          syncs separately through Neon.
+          Las preferencias corresponden a este navegador autenticado. Los datos
+          de oportunidades se sincronizan por separado mediante Neon.
         </p>
       </section>
       <section className={styles.panel}>
         <div className={styles.settingsGroup}>
-          <h3>Notification simulation</h3>
-          <p>No email or external message is sent by these controls.</p>
+          <h3>Simulación de notificaciones</h3>
+          <p>Estos controles no envían correos ni mensajes externos.</p>
           {rows.map(([id, title, description]) => (
             <div className={styles.settingRow} key={id}>
               <div>
@@ -556,7 +570,7 @@ export function Settings({ preferences, setPreferences, sync, onReset }) {
                   }))
                 }
                 className={`${styles.toggle} ${preferences[id] ? styles.toggleOn : ""}`}
-                aria-label={`${preferences[id] ? "Disable" : "Enable"} ${title}`}
+                aria-label={`${preferences[id] ? "Desactivar" : "Activar"} ${title}`}
                 aria-pressed={preferences[id]}
               >
                 <i />
@@ -567,17 +581,17 @@ export function Settings({ preferences, setPreferences, sync, onReset }) {
       </section>
       <section className={styles.panel}>
         <div className={styles.settingsGroup}>
-          <h3>Evaluation data</h3>
+          <h3>Datos de evaluación</h3>
           <p>
-            NovaFlow is a conceptual technical demonstration. Resetting restores
-            only the fictional baseline.
+            NovaFlow es una demostración técnica conceptual. Restablecerla solo
+            recupera la base ficticia.
           </p>
           <div className={styles.securityNote}>
             <Icon name="shield" />
             <div>
               <b>{sync.label}</b>
               <span>
-                No real customer records are included in this workspace.
+                Este espacio no incluye registros de clientes reales.
               </span>
             </div>
           </div>
@@ -586,7 +600,7 @@ export function Settings({ preferences, setPreferences, sync, onReset }) {
             className={styles.resetButton}
             onClick={onReset}
           >
-            <Icon name="refresh" size={16} /> Reset fictional workspace
+            <Icon name="refresh" size={16} /> Restablecer espacio ficticio
           </button>
         </div>
       </section>

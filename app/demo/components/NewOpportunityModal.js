@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { OWNERS, STAGES } from "../../../lib/novaflow.mjs";
+import { stageLabel } from "../../../lib/ui-labels.mjs";
 import styles from "../demo.module.css";
 import Icon from "./Icon";
 
@@ -61,15 +62,15 @@ export default function NewOpportunityModal({ open, onClose, onCreate }) {
     const value = Number(draft.value);
     const probability = Number(draft.probability);
     if (!draft.company.trim() || !draft.contact.trim() || !draft.next.trim()) {
-      setError("Company, contact and next action are required.");
+      setError("Empresa, contacto y siguiente acción son obligatorios.");
       return;
     }
     if (!Number.isFinite(value) || value <= 0 || value > 100000000) {
-      setError("Enter a valid opportunity value.");
+      setError("Ingresa un valor válido para la oportunidad.");
       return;
     }
     if (!Number.isFinite(probability) || probability < 0 || probability > 100) {
-      setError("Probability must be between 0 and 100.");
+      setError("La probabilidad debe estar entre 0 y 100.");
       return;
     }
 
@@ -87,7 +88,7 @@ export default function NewOpportunityModal({ open, onClose, onCreate }) {
 
     if (created === false) {
       setError(
-        "This evaluation workspace has reached its opportunity limit. Reset the demo or remove data before creating another record.",
+        "Este espacio de evaluación alcanzó su límite de oportunidades. Restablece la demo antes de crear otro registro.",
       );
       return;
     }
@@ -112,14 +113,14 @@ export default function NewOpportunityModal({ open, onClose, onCreate }) {
       >
         <div className={styles.modalHeader}>
           <div>
-            <span className={styles.eyebrow}>Fictional pipeline</span>
-            <h2 id="new-opportunity-title">Create opportunity</h2>
-            <p>Add an evaluation record to your private demo workspace.</p>
+            <span className={styles.eyebrow}>Pipeline ficticio</span>
+            <h2 id="new-opportunity-title">Crear oportunidad</h2>
+            <p>Agrega un registro de evaluación a tu espacio privado de demo.</p>
           </div>
           <button
             type="button"
             onClick={onClose}
-            aria-label="Close create opportunity dialog"
+            aria-label="Cerrar diálogo para crear oportunidad"
           >
             <Icon name="close" />
           </button>
@@ -127,7 +128,7 @@ export default function NewOpportunityModal({ open, onClose, onCreate }) {
         <form onSubmit={submit} className={styles.modalForm}>
           <div className={styles.fieldGrid}>
             <label>
-              Company
+              Empresa
               <input
                 ref={companyRef}
                 value={draft.company}
@@ -139,7 +140,7 @@ export default function NewOpportunityModal({ open, onClose, onCreate }) {
               />
             </label>
             <label>
-              Contact
+              Contacto
               <input
                 value={draft.contact}
                 onChange={(event) =>
@@ -150,7 +151,7 @@ export default function NewOpportunityModal({ open, onClose, onCreate }) {
               />
             </label>
             <label>
-              Owner
+              Responsable
               <select
                 value={draft.owner}
                 onChange={(event) =>
@@ -163,7 +164,7 @@ export default function NewOpportunityModal({ open, onClose, onCreate }) {
               </select>
             </label>
             <label>
-              Stage
+              Etapa
               <select
                 value={draft.stage}
                 onChange={(event) =>
@@ -171,12 +172,14 @@ export default function NewOpportunityModal({ open, onClose, onCreate }) {
                 }
               >
                 {STAGES.map((stage) => (
-                  <option key={stage}>{stage}</option>
+                  <option key={stage} value={stage}>
+                    {stageLabel(stage)}
+                  </option>
                 ))}
               </select>
             </label>
             <label>
-              Deal value
+              Valor de la oportunidad
               <input
                 type="number"
                 min="1"
@@ -188,7 +191,7 @@ export default function NewOpportunityModal({ open, onClose, onCreate }) {
               />
             </label>
             <label>
-              Probability %
+              Probabilidad %
               <input
                 type="number"
                 min="0"
@@ -201,13 +204,13 @@ export default function NewOpportunityModal({ open, onClose, onCreate }) {
             </label>
           </div>
           <label>
-            Next action
+            Siguiente acción
             <input
               value={draft.next}
               onChange={(event) =>
                 setDraft({ ...draft, next: event.target.value })
               }
-              placeholder="Book technical discovery"
+              placeholder="Agendar descubrimiento técnico"
               maxLength={180}
             />
           </label>
@@ -222,10 +225,10 @@ export default function NewOpportunityModal({ open, onClose, onCreate }) {
               className={styles.secondaryButton}
               onClick={onClose}
             >
-              Cancel
+              Cancelar
             </button>
             <button type="submit" className={styles.primaryButton}>
-              Create opportunity <Icon name="arrow" />
+              Crear oportunidad <Icon name="arrow" />
             </button>
           </div>
         </form>

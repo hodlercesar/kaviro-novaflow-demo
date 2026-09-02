@@ -1,9 +1,14 @@
 import { riskFor } from "../../../lib/novaflow.mjs";
+import {
+  nextActionLabel,
+  riskLabel,
+  stageLabel,
+} from "../../../lib/ui-labels.mjs";
 import styles from "../demo.module.css";
 import Icon from "./Icon";
 
 export function money(value) {
-  return new Intl.NumberFormat("en-US", {
+  return new Intl.NumberFormat("es-CL", {
     style: "currency",
     currency: "USD",
     maximumFractionDigits: 0,
@@ -106,21 +111,21 @@ export function DealRow({ deal, onAdvance }) {
           </small>
         </div>
       </div>
-      <span className={styles.stagePill}>{deal.stage}</span>
+      <span className={styles.stagePill}>{stageLabel(deal.stage)}</span>
       <div className={styles.valueCell}>
         <b>{money(deal.value)}</b>
-        <small>{deal.probability}% weighted</small>
+        <small>{deal.probability}% ponderado</small>
       </div>
       <span className={`${styles.riskPill} ${styles[`risk${risk}`]}`}>
         <i />
-        {risk}
+        {riskLabel(risk)}
       </span>
       <div className={styles.nextCell}>
-        <b>{deal.next}</b>
+        <b>{nextActionLabel(deal.next)}</b>
         <small>
           {deal.daysIdle === 0
-            ? "Updated today"
-            : `${deal.daysIdle}d since update`}
+            ? "Actualizado hoy"
+            : `Hace ${deal.daysIdle} ${deal.daysIdle === 1 ? "día" : "días"}`}
         </small>
       </div>
       <button
@@ -130,8 +135,8 @@ export function DealRow({ deal, onAdvance }) {
         disabled={deal.stage === "Won"}
         aria-label={
           deal.stage === "Won"
-            ? `${deal.company} is closed won`
-            : `Advance ${deal.company} to the next stage`
+            ? `${deal.company} está cerrada como ganada`
+            : `Avanzar ${deal.company} a la siguiente etapa`
         }
       >
         {deal.stage === "Won" ? <Icon name="check" /> : <Icon name="chevron" />}

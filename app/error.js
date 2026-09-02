@@ -8,16 +8,16 @@ export default function ErrorPage({ reset }) {
     <main className={styles.page}>
       <section className={styles.card}>
         <div className={styles.mark}>N</div>
-        <h1>NovaFlow hit a problem.</h1>
+        <h1>NovaFlow encontró un problema.</h1>
         <p>
-          Your account and fictional workspace data remain isolated. Try
-          rendering this view again.
+          Tu cuenta y los datos ficticios del espacio siguen aislados. Intenta
+          cargar esta vista nuevamente.
         </p>
         <div className={styles.actions}>
           <button type="button" onClick={reset}>
-            Try again
+            Intentar de nuevo
           </button>
-          <Link href="/">Return home</Link>
+          <Link href="/">Volver al inicio</Link>
         </div>
       </section>
     </main>

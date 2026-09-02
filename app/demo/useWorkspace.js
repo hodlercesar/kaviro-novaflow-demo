@@ -93,7 +93,7 @@ export function useWorkspace(userId) {
   const [preferences, setPreferences] = useState(DEFAULT_PREFERENCES);
   const [sync, setSync] = useState({
     state: "loading",
-    label: "Loading workspace",
+    label: "Cargando espacio",
     source: "initial",
   });
   const [hydratedUserId, setHydratedUserId] = useState(null);
@@ -118,7 +118,7 @@ export function useWorkspace(userId) {
           signal: controller.signal,
           cache: "no-store",
         });
-        if (!response.ok) throw new Error("Workspace service unavailable");
+        if (!response.ok) throw new Error("Servicio del espacio no disponible");
         const data = await response.json();
         if (currentGeneration !== generation.current) return;
 
@@ -126,19 +126,19 @@ export function useWorkspace(userId) {
         if (data.deals !== null && stored.success) {
           setDeals(stored.data);
           lastPersistedDeals.current = JSON.stringify(stored.data);
-          setSync({ state: "saved", label: "Saved to Neon", source: "neon" });
+          setSync({ state: "saved", label: "Guardado en Neon", source: "neon" });
         } else if (local?.deals) {
           setDeals(local.deals);
           setSync({
             state: "local",
-            label: "Restored locally",
+            label: "Restaurado localmente",
             source: "local",
           });
         } else {
           setDeals(cloneSeedDeals());
           setSync({
             state: "local",
-            label: "Fictional starter data",
+            label: "Datos ficticios iniciales",
             source: "seed",
           });
         }
@@ -151,7 +151,7 @@ export function useWorkspace(userId) {
         setDeals(local?.deals || cloneSeedDeals());
         setSync({
           state: "local",
-          label: "Local fallback active",
+          label: "Respaldo local activo",
           source: "local",
         });
       } finally {
@@ -181,7 +181,7 @@ export function useWorkspace(userId) {
         }),
       );
     } catch {
-      // The server remains the canonical source when browser storage is unavailable.
+      // El servidor sigue siendo la fuente canónica cuando el almacenamiento local no está disponible.
     }
     return undefined;
   }, [activity, automations, deals, hydrated, preferences, userId]);
@@ -194,7 +194,7 @@ export function useWorkspace(userId) {
     setSync((current) => ({
       ...current,
       state: "saving",
-      label: "Saving changes",
+      label: "Guardando cambios",
     }));
     const timer = window.setTimeout(async () => {
       try {
@@ -204,14 +204,14 @@ export function useWorkspace(userId) {
           body: JSON.stringify({ deals }),
           signal: controller.signal,
         });
-        if (!response.ok) throw new Error("Save failed");
+        if (!response.ok) throw new Error("Error al guardar");
         lastPersistedDeals.current = serializedDeals;
-        setSync({ state: "saved", label: "Saved to Neon", source: "neon" });
+        setSync({ state: "saved", label: "Guardado en Neon", source: "neon" });
       } catch (error) {
         if (error.name !== "AbortError") {
           setSync({
             state: "local",
-            label: "Saved in this browser",
+            label: "Guardado en este navegador",
             source: "local",
           });
         }
@@ -239,7 +239,7 @@ export function useWorkspace(userId) {
           body: JSON.stringify({ deals }),
           signal: controller.signal,
         });
-        if (!response.ok) throw new Error("Forecast unavailable");
+        if (!response.ok) throw new Error("Pronóstico no disponible");
         setForecast(await response.json());
       } catch (error) {
         if (error.name !== "AbortError") setForecast(null);
@@ -253,7 +253,7 @@ export function useWorkspace(userId) {
 
   const addActivity = useCallback((text) => {
     setActivity((current) =>
-      [{ id: crypto.randomUUID(), text, time: "now" }, ...current].slice(0, 20),
+      [{ id: crypto.randomUUID(), text, time: "ahora" }, ...current].slice(0, 20),
     );
   }, []);
 
@@ -262,7 +262,7 @@ export function useWorkspace(userId) {
     setAutomations(cloneSeedAutomations());
     setActivity(cloneSeedActivity());
     setPreferences(DEFAULT_PREFERENCES);
-    addActivity("Workspace reset to the fictional evaluation baseline");
+    addActivity("El espacio se restableció a la base ficticia de evaluación");
   }, [addActivity]);
 
   return {
@@ -279,6 +279,6 @@ export function useWorkspace(userId) {
     hydrated,
     metrics: forecast?.metrics || localForecast.metrics,
     stageTotals: forecast?.stageTotals || localForecast.stageTotals,
-    forecastSource: forecast ? "Server verified" : "Local fallback",
+    forecastSource: forecast ? "Verificado por servidor" : "Cálculo local",
   };
 }

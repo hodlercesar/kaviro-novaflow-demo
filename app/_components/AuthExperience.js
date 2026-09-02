@@ -60,7 +60,7 @@ export default function AuthExperience({ mode = "sign-in" }) {
     let frame;
     const inspect = () => {
       const focused = document.activeElement;
-      // No .value, keyboard text, selection, credential storage or analytics.
+      // No se leen valores, texto escrito, selecciones, credenciales ni analíticas.
       if (focused instanceof HTMLInputElement && root.contains(focused)) {
         setPose(
           mascotPose({
@@ -98,7 +98,6 @@ export default function AuthExperience({ mode = "sign-in" }) {
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(inspect);
     };
-    // Observe only the Clerk form; decorative state never changes its DOM.
     const observer = new MutationObserver(schedule);
     observer.observe(root, {
       subtree: true,
@@ -118,9 +117,9 @@ export default function AuthExperience({ mode = "sign-in" }) {
   }, []);
 
   return (
-    <main className={styles.page} lang="en">
+    <main className={styles.page} lang="es">
       <header className={styles.topbar}>
-        <Link href="/" aria-label="NovaFlow home">
+        <Link href="/" aria-label="Inicio de NovaFlow">
           <Brand className={styles.brand} />
         </Link>
       </header>
@@ -129,8 +128,8 @@ export default function AuthExperience({ mode = "sign-in" }) {
           className={styles.card}
           aria-label={
             mode === "sign-up"
-              ? "Create your NovaFlow account"
-              : "Sign in to NovaFlow"
+              ? "Crear tu cuenta de NovaFlow"
+              : "Iniciar sesión en NovaFlow"
           }
         >
           <NovaMascot
@@ -140,7 +139,7 @@ export default function AuthExperience({ mode = "sign-in" }) {
           <div ref={formRef} className={styles.formSlot} aria-busy={!isLoaded}>
             {!isLoaded ? (
               <div className={styles.loading} role="status">
-                <span>Preparing your workspace…</span>
+                <span>Preparando tu espacio…</span>
                 <div className={styles.loadingButton} aria-hidden="true" />
                 <div className={styles.loadingField} aria-hidden="true" />
                 <div className={styles.loadingButton} aria-hidden="true" />
@@ -165,11 +164,10 @@ export default function AuthExperience({ mode = "sign-in" }) {
           </div>
         </section>
         <Link href="/" className={styles.backLink}>
-          ← Back to NovaFlow
+          ← Volver a NovaFlow
         </Link>
       </div>
-      <footer className={styles.footer}>Concept demo · Fictional data</footer>
+      <footer className={styles.footer}>Demo conceptual · Datos ficticios</footer>
     </main>
   );
 }
-
