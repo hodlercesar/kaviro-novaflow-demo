@@ -5,9 +5,9 @@ import Icon from "./demo/components/Icon";
 import styles from "./home.module.css";
 
 const benefits = [
-  ["pipeline", "Track", "Gestiona cada oportunidad."],
-  ["bolt", "Automate", "Explora reglas simuladas."],
-  ["chart", "Forecast", "Proyección por probabilidad."],
+  ["pipeline", "Gestiona", "Gestiona cada oportunidad."],
+  ["bolt", "Automatiza", "Explora reglas simuladas."],
+  ["chart", "Proyecta", "Proyección por probabilidad."],
 ];
 
 export default function Home() {
@@ -35,7 +35,7 @@ export default function Home() {
         >
           <p className={styles.eyebrow}>
             <span />
-            NOVAFLOW · CONCEPT DEMO BY KAVIRO STUDIO
+            NOVAFLOW · DEMO CONCEPTUAL DE KAVIRO STUDIO
           </p>
           <h1 id="hero-title">
             Tu pipeline.
@@ -72,7 +72,7 @@ export default function Home() {
                 <span className={styles.featureIcon}>
                   <Icon name={icon} size={20} />
                 </span>
-                <h3 lang="en">{title}</h3>
+                <h3>{title}</h3>
                 <p>{copy}</p>
               </article>
             ))}
