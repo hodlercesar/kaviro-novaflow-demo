@@ -4,33 +4,33 @@ import "./globals.css";
 export const metadata = {
   metadataBase: new URL("https://kaviro-novaflow-demo.vercel.app"),
   title: {
-    default: "NovaFlow — Concept Revenue Operations SaaS",
+    default: "NovaFlow — SaaS conceptual de operaciones de ingresos",
     template: "%s · NovaFlow",
   },
   description:
-    "A transparent, functional concept SaaS application designed and built by KAVIRO Studio as a technical product demonstration.",
+    "Aplicación SaaS conceptual, transparente y funcional, diseñada y construida por KAVIRO Studio como demostración técnica de producto.",
   applicationName: "NovaFlow",
   authors: [{ name: "KAVIRO Studio" }],
   keywords: [
     "Next.js",
-    "SaaS demo",
-    "product engineering",
-    "revenue operations",
+    "demo SaaS",
+    "desarrollo de producto",
+    "operaciones de ingresos",
     "KAVIRO Studio",
   ],
   openGraph: {
-    title: "NovaFlow — Functional concept SaaS by KAVIRO Studio",
+    title: "NovaFlow — SaaS conceptual funcional de KAVIRO Studio",
     description:
-      "Explore a responsive, authenticated revenue-operations concept with fictional evaluation data and real product interactions.",
+      "Explora un concepto responsive y autenticado de operaciones de ingresos con datos ficticios e interacciones reales de producto.",
     type: "website",
-    locale: "en_US",
+    locale: "es_CL",
     url: "/",
     siteName: "NovaFlow",
   },
   twitter: {
     card: "summary_large_image",
-    title: "NovaFlow — Functional concept SaaS",
-    description: "A transparent technical portfolio project by KAVIRO Studio.",
+    title: "NovaFlow — SaaS conceptual funcional",
+    description: "Un proyecto técnico de portafolio de KAVIRO Studio.",
   },
 };
 
@@ -42,19 +42,19 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="es">
       <body>
         <ClerkProvider
           localization={{
             signIn: {
               start: {
-                title: "Welcome to NovaFlow",
+                title: "Bienvenido a NovaFlow",
                 subtitle: "",
               },
             },
             signUp: {
               start: {
-                title: "Create your workspace",
+                title: "Crea tu espacio",
                 subtitle: "",
               },
             },
