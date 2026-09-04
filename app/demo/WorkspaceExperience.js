@@ -287,7 +287,9 @@ export default function WorkspaceExperience({
             <div>
               <b>{userLabel}</b>
               <small>
-                {isPreview ? "No account · changes are temporary" : "Authenticated with Clerk"}
+                {isPreview
+                  ? "No account · changes are temporary"
+                  : "Authenticated with Clerk"}
               </small>
             </div>
             <button
@@ -373,13 +375,17 @@ export default function WorkspaceExperience({
 
         <div className={styles.content}>
           {isPreview && (
-            <section className={styles.previewBanner} aria-label="Instant evaluation mode">
+            <section
+              className={styles.previewBanner}
+              aria-label="Instant evaluation mode"
+            >
               <div>
                 <Icon name="shield" size={16} />
                 <span>
                   <b>Instant evaluation mode</b>
                   <small>
-                    Try the product without an account. Changes stay only in this tab.
+                    Try the product without an account. Changes stay only in
+                    this tab.
                   </small>
                 </span>
               </div>

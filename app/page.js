@@ -97,16 +97,20 @@ export default function Home() {
             <span className={styles.creatorKicker}>PORTFOLIO ENGINEERING</span>
             <h2 id="creator-title">Construido por Hodler César.</h2>
             <p>
-              NovaFlow es un proyecto técnico de portafolio creado para demostrar
-              frontend, lógica de producto, autenticación, persistencia y
-              despliegue. No corresponde a trabajo realizado para un cliente.
+              NovaFlow es un proyecto técnico de portafolio creado para
+              demostrar frontend, lógica de producto, autenticación,
+              persistencia y despliegue. No corresponde a trabajo realizado para
+              un cliente.
             </p>
             <p className={styles.creatorMeta}>
               Desarrollo web en formación · React · Next.js · JavaScript ·
               PostgreSQL
             </p>
           </div>
-          <div className={styles.creatorLinks} aria-label="Enlaces profesionales">
+          <div
+            className={styles.creatorLinks}
+            aria-label="Enlaces profesionales"
+          >
             <a
               href="https://github.com/hodlercesar"
               target="_blank"

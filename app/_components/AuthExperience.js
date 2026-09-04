@@ -172,4 +172,3 @@ export default function AuthExperience({ mode = "sign-in" }) {
     </main>
   );
 }
-

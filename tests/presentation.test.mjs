@@ -38,9 +38,11 @@ test("password privacy takes precedence over identifier-like field names", () =>
   assert.equal(mascotPose({ type: "text", id: "new-password-field" }), "peek");
 });
 
-
 test("portfolio exposes instant and persistent evaluation paths", async () => {
-  const home = await readFile(new URL("../app/page.js", import.meta.url), "utf8");
+  const home = await readFile(
+    new URL("../app/page.js", import.meta.url),
+    "utf8",
+  );
   const preview = await readFile(
     new URL("../app/preview/page.js", import.meta.url),
     "utf8",

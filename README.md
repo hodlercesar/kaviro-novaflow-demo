@@ -42,21 +42,21 @@ The database client accepts `STORAGE_URL`, `DATABASE_URL`, `POSTGRES_URL`, or `N
 
 ## Architecture
 
-| Boundary                     | Responsibility                                            |
-| ---------------------------- | --------------------------------------------------------- |
-| `app/page.js`                | Public product presentation                               |
-| `app/sign-in`, `app/sign-up` | Clerk authentication UI                                   |
-| `middleware.js`              | Clerk request/session context                             |
-| `app/demo/layout.js`         | Server-side authentication gate                           |
-| `app/demo/page.js`           | Authenticated workspace entry point                        |
-| `app/demo/WorkspaceExperience.js` | Shared interactive workspace UI for preview + auth      |
-| `app/demo/usePreviewWorkspace.js` | In-memory fictional workspace for zero-friction review  |
-| `app/preview/page.js`        | No-account recruiter evaluation route                      |
-| `app/demo/components`        | Focused dashboard views and accessible opportunity dialog |
-| `app/demo/useWorkspace.js`   | Hydration, per-user browser fallback and debounced saves  |
-| `lib/novaflow.mjs`           | Shared validation, risk and forecast rules                |
-| `lib/demo-data.mjs`          | Explicit fictional baseline                               |
-| `lib/db.js`                  | Database access, imported only by API handlers            |
+| Boundary                          | Responsibility                                            |
+| --------------------------------- | --------------------------------------------------------- |
+| `app/page.js`                     | Public product presentation                               |
+| `app/sign-in`, `app/sign-up`      | Clerk authentication UI                                   |
+| `middleware.js`                   | Clerk request/session context                             |
+| `app/demo/layout.js`              | Server-side authentication gate                           |
+| `app/demo/page.js`                | Authenticated workspace entry point                       |
+| `app/demo/WorkspaceExperience.js` | Shared interactive workspace UI for preview + auth        |
+| `app/demo/usePreviewWorkspace.js` | In-memory fictional workspace for zero-friction review    |
+| `app/preview/page.js`             | No-account recruiter evaluation route                     |
+| `app/demo/components`             | Focused dashboard views and accessible opportunity dialog |
+| `app/demo/useWorkspace.js`        | Hydration, per-user browser fallback and debounced saves  |
+| `lib/novaflow.mjs`                | Shared validation, risk and forecast rules                |
+| `lib/demo-data.mjs`               | Explicit fictional baseline                               |
+| `lib/db.js`                       | Database access, imported only by API handlers            |
 
 ### APIs
 

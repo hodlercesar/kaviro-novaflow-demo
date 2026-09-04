@@ -6,11 +6,5 @@ import { usePreviewWorkspace } from "../demo/usePreviewWorkspace";
 export default function PreviewPage() {
   const workspace = usePreviewWorkspace();
 
-  return (
-    <WorkspaceExperience
-      workspace={workspace}
-      mode="preview"
-      ready
-    />
-  );
+  return <WorkspaceExperience workspace={workspace} mode="preview" ready />;
 }

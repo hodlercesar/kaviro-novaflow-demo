@@ -509,7 +509,13 @@ export function Team({ deals }) {
   );
 }
 
-export function Settings({ preferences, setPreferences, sync, onReset, previewMode = false }) {
+export function Settings({
+  preferences,
+  setPreferences,
+  sync,
+  onReset,
+  previewMode = false,
+}) {
   const rows = [
     [
       "weekly",
