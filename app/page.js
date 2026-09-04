@@ -22,6 +22,7 @@ export default function Home() {
         </Link>
         <nav aria-label="Navegación principal">
           <a href="#product">Producto</a>
+          <a href="#creator">Hodler César</a>
           <a href="#build">KAVIRO Studio</a>
         </nav>
         <Link href="/sign-in" className={styles.navLogin}>
@@ -47,10 +48,19 @@ export default function Home() {
             mejoramos productos web.
           </p>
           <div className={styles.heroActions}>
-            <Link href="/demo" className={styles.primary}>
-              Explorar NovaFlow <Icon name="arrow" />
+            <Link href="/preview" className={styles.primary}>
+              Ver demo instantánea <Icon name="arrow" />
+            </Link>
+            <Link
+              href="/sign-in?redirect_url=/demo"
+              className={styles.secondary}
+            >
+              Probar persistencia
             </Link>
           </div>
+          <p className={styles.heroNote}>
+            Sin registro para la demo instantánea · datos 100% ficticios
+          </p>
         </section>
         <section
           id="product"
@@ -78,6 +88,47 @@ export default function Home() {
             ))}
           </div>
         </section>
+        <section
+          id="creator"
+          className={`${styles.creator} ${styles.shell}`}
+          aria-labelledby="creator-title"
+        >
+          <div className={styles.creatorCopy}>
+            <span className={styles.creatorKicker}>PORTFOLIO ENGINEERING</span>
+            <h2 id="creator-title">Construido por Hodler César.</h2>
+            <p>
+              NovaFlow es un proyecto técnico de portafolio creado para
+              demostrar frontend, lógica de producto, autenticación,
+              persistencia y despliegue. No corresponde a trabajo realizado para
+              un cliente.
+            </p>
+            <p className={styles.creatorMeta}>
+              Desarrollo web en formación · React · Next.js · JavaScript ·
+              PostgreSQL
+            </p>
+          </div>
+          <div
+            className={styles.creatorLinks}
+            aria-label="Enlaces profesionales"
+          >
+            <a
+              href="https://github.com/hodlercesar"
+              target="_blank"
+              rel="noreferrer"
+            >
+              GitHub <span aria-hidden="true">↗</span>
+            </a>
+            <a
+              href="https://github.com/hodlercesar/kaviro-novaflow-demo"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Ver código <span aria-hidden="true">↗</span>
+            </a>
+            <a href="mailto:empresakavirostudio@gmail.com">Contacto</a>
+          </div>
+        </section>
+
         <section
           id="build"
           className={`${styles.build} ${styles.shell}`}

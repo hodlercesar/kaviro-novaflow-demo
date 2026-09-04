@@ -1,5 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import { getProductPreview } from "../lib/product-preview.mjs";
 import { seedDeals } from "../lib/demo-data.mjs";
 import { calculateForecast } from "../lib/novaflow.mjs";
@@ -35,4 +36,25 @@ test("mascot follows field metadata without credential values", () => {
 test("password privacy takes precedence over identifier-like field names", () => {
   assert.equal(mascotPose({ type: "password", name: "username" }), "shield");
   assert.equal(mascotPose({ type: "text", id: "new-password-field" }), "peek");
+});
+
+test("portfolio exposes instant and persistent evaluation paths", async () => {
+  const home = await readFile(
+    new URL("../app/page.js", import.meta.url),
+    "utf8",
+  );
+  const preview = await readFile(
+    new URL("../app/preview/page.js", import.meta.url),
+    "utf8",
+  );
+  const workspace = await readFile(
+    new URL("../app/demo/WorkspaceExperience.js", import.meta.url),
+    "utf8",
+  );
+
+  assert.match(home, /href="\/preview"/);
+  assert.match(home, /Construido por Hodler César/);
+  assert.match(home, /sign-in\?redirect_url=\/demo/);
+  assert.match(preview, /usePreviewWorkspace/);
+  assert.match(workspace, /Instant evaluation mode/);
 });

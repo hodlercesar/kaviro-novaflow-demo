@@ -98,7 +98,8 @@
   align-items: center;
   gap: 12px;
 }
-.primary {
+.primary,
+.secondary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -112,6 +113,16 @@
     background 0.2s,
     border-color 0.2s,
     transform 0.2s;
+}
+.secondary {
+  background: transparent;
+  color: #c9bfd8;
+  border: 1px solid #ffffff1f;
+}
+.secondary:hover {
+  color: #eee9f7;
+  border-color: #5c4b78;
+  background: #ffffff05;
 }
 .primary {
   background: #b9a6ff;
@@ -128,6 +139,12 @@
 .primary:active {
   background: #ad96f5;
   transform: none;
+}
+.heroNote {
+  margin: 13px 0 0;
+  color: #8f879d;
+  font-size: 10px;
+  letter-spacing: 0.2px;
 }
 .productSection {
   scroll-margin-top: 24px;
@@ -545,6 +562,67 @@
   line-height: 1.7;
   text-wrap: pretty;
 }
+.creator {
+  margin-top: 36px;
+  padding: 30px;
+  border: 1px solid #ffffff10;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #b69cff0c, transparent 48%), #0f1015;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  scroll-margin-top: 24px;
+}
+.creatorCopy {
+  max-width: 670px;
+}
+.creatorKicker {
+  color: #ab98d2;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+}
+.creator h2 {
+  margin: 10px 0 8px;
+  font-size: 25px;
+  font-weight: 550;
+  letter-spacing: -0.7px;
+}
+.creator p {
+  margin: 0;
+  color: #bbb2c8;
+  font-size: 12px;
+  line-height: 1.7;
+}
+.creatorMeta {
+  margin-top: 10px !important;
+  color: #8f879d !important;
+  font-size: 10px !important;
+}
+.creatorLinks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.creatorLinks a {
+  min-height: 38px;
+  padding: 0 12px;
+  border: 1px solid #ffffff15;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #cfc5dd;
+  font-size: 10px;
+  font-weight: 600;
+}
+.creatorLinks a:hover {
+  color: #efe9fb;
+  border-color: #5c4b78;
+  background: #ffffff05;
+}
 .build {
   display: flex;
   justify-content: space-between;
@@ -664,6 +742,13 @@
   .benefitGrid article {
     padding: 20px 16px;
   }
+  .creator {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .creatorLinks {
+    justify-content: flex-start;
+  }
   .build {
     align-items: flex-start;
     flex-direction: column;
@@ -732,6 +817,11 @@
   }
   .heroActions {
     gap: 8px;
+    flex-wrap: wrap;
+  }
+  .secondary {
+    padding: 12px 15px;
+    font-size: 12px;
   }
   .primary {
     padding: 12px 15px;
@@ -823,6 +913,20 @@
   }
   .benefitGrid p {
     font-size: 12px;
+  }
+  .creator {
+    margin-top: 26px;
+    padding: 22px 18px;
+  }
+  .creator h2 {
+    font-size: 22px;
+  }
+  .creatorLinks {
+    width: 100%;
+  }
+  .creatorLinks a {
+    flex: 1 1 auto;
+    justify-content: center;
   }
   .build {
     padding-block: 30px;

@@ -509,7 +509,13 @@ export function Team({ deals }) {
   );
 }
 
-export function Settings({ preferences, setPreferences, sync, onReset }) {
+export function Settings({
+  preferences,
+  setPreferences,
+  sync,
+  onReset,
+  previewMode = false,
+}) {
   const rows = [
     [
       "weekly",
@@ -533,8 +539,9 @@ export function Settings({ preferences, setPreferences, sync, onReset }) {
         <span className={styles.eyebrow}>Workspace controls</span>
         <h2>Clear, reversible demo settings.</h2>
         <p>
-          Preferences are scoped to this signed-in browser. Opportunity data
-          syncs separately through Neon.
+          {previewMode
+            ? "Preferences are temporary in instant evaluation mode and reset when the session ends."
+            : "Preferences are scoped to this signed-in browser. Opportunity data syncs separately through Neon."}
         </p>
       </section>
       <section className={styles.panel}>

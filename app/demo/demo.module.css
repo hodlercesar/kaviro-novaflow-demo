@@ -1,4 +1,54 @@
 .appShell,
+.previewBanner {
+  margin-bottom: 20px;
+  padding: 13px 14px;
+  border: 1px solid #342d4b;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #1b1727, #12141b);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.previewBanner > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  color: #bcaaff;
+}
+.previewBanner span {
+  min-width: 0;
+}
+.previewBanner b {
+  display: block;
+  color: #eee9ff;
+  font-size: 10px;
+}
+.previewBanner small {
+  display: block;
+  margin-top: 3px;
+  color: #a9a1b7;
+  font-size: 9px;
+  line-height: 1.5;
+}
+.previewBanner a {
+  flex: 0 0 auto;
+  min-height: 34px;
+  padding: 0 11px;
+  border: 1px solid #4a3f69;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #d9ceff;
+  font-size: 9px;
+  font-weight: 700;
+}
+.previewBanner a:hover {
+  background: #211b31;
+  border-color: #66558f;
+}
 .loading {
   box-sizing: border-box;
   font-family:
@@ -1385,6 +1435,10 @@
   }
 }
 @media (max-width: 620px) {
+  .previewBanner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
   .syncPill {
     width: 36px;
     height: 36px;

@@ -6,7 +6,7 @@ A conceptual revenue-operations SaaS by **KAVIRO Studio**. Built for product and
 
 ## Product scope
 
-- Public product landing and authenticated `/demo` workspace.
+- Public product landing, zero-friction `/preview` evaluation workspace, and authenticated `/demo` workspace.
 - Clerk sign-in, sign-up and sign-out. No shared demo password or parallel session mechanism.
 - Opportunity creation, search, risk filters and stage advancement.
 - Deterministic risk scoring and probability-weighted forecasting, validated on the server.
@@ -22,7 +22,7 @@ Next.js 15 App Router · React 18 · JavaScript · CSS Modules · Clerk · Neon 
 
 ## Public experience
 
-The public home is a server-rendered, Spanish product introduction. Its preview uses `lib/product-preview.mjs` and the same fictional seed data and forecast rules as the dashboard; it never reads private workspace records. The authenticated workspace and Clerk flows remain in English.
+The public home is a server-rendered, Spanish product introduction with two evaluation paths: an instant no-account preview for recruiters and a persistent authenticated workspace for deeper technical review. Its preview uses `lib/product-preview.mjs` and the same fictional seed data and forecast rules as the dashboard; it never reads private workspace records. The authenticated workspace and Clerk flows remain in English.
 
 Sign-in and sign-up share `AuthExperience`. Nox, an original stylized lynx, is an inline SVG with CSS breathing/blinking, field-focus poses, covered eyes for passwords and a cautious peek when revealed. A scoped observer reads only field metadata and visible error state—never input values, keystrokes or credentials. Clerk handles submission, Google sign-in, verification, errors and redirection. The success reaction is opportunistic: it never delays navigation to `/demo`. Unknown Clerk markup falls back to a calm pose.
 
@@ -42,18 +42,21 @@ The database client accepts `STORAGE_URL`, `DATABASE_URL`, `POSTGRES_URL`, or `N
 
 ## Architecture
 
-| Boundary                     | Responsibility                                            |
-| ---------------------------- | --------------------------------------------------------- |
-| `app/page.js`                | Public product presentation                               |
-| `app/sign-in`, `app/sign-up` | Clerk authentication UI                                   |
-| `middleware.js`              | Clerk request/session context                             |
-| `app/demo/layout.js`         | Server-side authentication gate                           |
-| `app/demo/page.js`           | Workspace shell and user interactions                     |
-| `app/demo/components`        | Focused dashboard views and accessible opportunity dialog |
-| `app/demo/useWorkspace.js`   | Hydration, per-user browser fallback and debounced saves  |
-| `lib/novaflow.mjs`           | Shared validation, risk and forecast rules                |
-| `lib/demo-data.mjs`          | Explicit fictional baseline                               |
-| `lib/db.js`                  | Database access, imported only by API handlers            |
+| Boundary                          | Responsibility                                            |
+| --------------------------------- | --------------------------------------------------------- |
+| `app/page.js`                     | Public product presentation                               |
+| `app/sign-in`, `app/sign-up`      | Clerk authentication UI                                   |
+| `middleware.js`                   | Clerk request/session context                             |
+| `app/demo/layout.js`              | Server-side authentication gate                           |
+| `app/demo/page.js`                | Authenticated workspace entry point                       |
+| `app/demo/WorkspaceExperience.js` | Shared interactive workspace UI for preview + auth        |
+| `app/demo/usePreviewWorkspace.js` | In-memory fictional workspace for zero-friction review    |
+| `app/preview/page.js`             | No-account recruiter evaluation route                     |
+| `app/demo/components`             | Focused dashboard views and accessible opportunity dialog |
+| `app/demo/useWorkspace.js`        | Hydration, per-user browser fallback and debounced saves  |
+| `lib/novaflow.mjs`                | Shared validation, risk and forecast rules                |
+| `lib/demo-data.mjs`               | Explicit fictional baseline                               |
+| `lib/db.js`                       | Database access, imported only by API handlers            |
 
 ### APIs
 
@@ -83,9 +86,9 @@ pnpm build
 pnpm format:check
 ```
 
-`pnpm check` runs all four. Build requires a valid Clerk publishable key. Automated unit tests cover deterministic business rules and validation; they do not replace a real authenticated browser test.
+`pnpm check` runs all four. Build requires a valid Clerk publishable key. GitHub Actions also runs formatting, linting and unit tests on pushes and pull requests, so the public repository shows an automated quality gate without requiring production secrets. Automated unit tests cover deterministic business rules and validation; they do not replace a real authenticated browser test.
 
-Before publishing, test desktop/mobile, keyboard navigation, protected redirects, sign-in/sign-out, creation, stage advancement, reload persistence, reset, and provider/database failure states. Verify two separate Clerk users cannot see one another's data.
+Before publishing, test desktop/mobile, keyboard navigation, the zero-friction preview, protected redirects, sign-in/sign-out, creation, stage advancement, reload persistence, reset, and provider/database failure states. Verify two separate Clerk users cannot see one another's data.
 
 ## Deployment review
 
