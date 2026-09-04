@@ -75,8 +75,8 @@ export default function ProductPreview() {
             <div>
               <h2>Overview</h2>
             </div>
-            <Link href="/demo" className={styles.previewAction}>
-              Open workspace
+            <Link href="/preview" className={styles.previewAction}>
+              Open instant demo
               <Icon name="arrow" size={14} />
             </Link>
           </div>
