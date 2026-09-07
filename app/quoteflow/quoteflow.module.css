@@ -1,8 +1,16 @@
 .page {
   min-height: 100vh;
   background:
-    radial-gradient(circle at 15% 0%, rgba(103, 232, 249, 0.12), transparent 32rem),
-    radial-gradient(circle at 90% 18%, rgba(167, 139, 250, 0.11), transparent 28rem),
+    radial-gradient(
+      circle at 15% 0%,
+      rgba(103, 232, 249, 0.12),
+      transparent 32rem
+    ),
+    radial-gradient(
+      circle at 90% 18%,
+      rgba(167, 139, 250, 0.11),
+      transparent 28rem
+    ),
     #071018;
   color: #eef7fb;
 }
@@ -48,7 +56,11 @@
   place-items: center;
   border: 1px solid rgba(125, 211, 252, 0.35);
   border-radius: 14px;
-  background: linear-gradient(145deg, rgba(34, 211, 238, 0.18), rgba(124, 58, 237, 0.15));
+  background: linear-gradient(
+    145deg,
+    rgba(34, 211, 238, 0.18),
+    rgba(124, 58, 237, 0.15)
+  );
   font-weight: 800;
   font-size: 13px;
 }
@@ -157,7 +169,11 @@
   border-radius: 26px;
   padding: 24px;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.02)),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.055),
+      rgba(255, 255, 255, 0.02)
+    ),
     #0a151f;
   box-shadow: 0 30px 90px rgba(0, 0, 0, 0.35);
 }
@@ -385,7 +401,11 @@
   border: 1px solid rgba(103, 232, 249, 0.16);
   border-radius: 28px;
   background:
-    radial-gradient(circle at 90% 0%, rgba(103, 232, 249, 0.08), transparent 22rem),
+    radial-gradient(
+      circle at 90% 0%,
+      rgba(103, 232, 249, 0.08),
+      transparent 22rem
+    ),
     rgba(255, 255, 255, 0.025);
   text-align: center;
 }

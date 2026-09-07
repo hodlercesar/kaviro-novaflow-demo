@@ -489,7 +489,11 @@
   border: 1px solid rgba(103, 232, 249, 0.12);
   border-radius: 18px;
   background:
-    radial-gradient(circle at 95% 20%, rgba(103, 232, 249, 0.06), transparent 20rem),
+    radial-gradient(
+      circle at 95% 20%,
+      rgba(103, 232, 249, 0.06),
+      transparent 20rem
+    ),
     rgba(255, 255, 255, 0.02);
 }
 

@@ -52,11 +52,14 @@ export default function QuoteFlowLanding() {
 
       <section className={styles.hero}>
         <div className={styles.heroCopy}>
-          <span className={styles.badge}>BETA PRIVADA · PROTOTIPO EN VALIDACIÓN</span>
+          <span className={styles.badge}>
+            BETA PRIVADA · PROTOTIPO EN VALIDACIÓN
+          </span>
           <h1>No pierdas cotizaciones por falta de seguimiento.</h1>
           <p>
-            QuoteFlow ayuda a pequeños negocios de servicios a saber qué cotizaron,
-            qué deben volver a contactar y qué oportunidades terminaron ganando.
+            QuoteFlow ayuda a pequeños negocios de servicios a saber qué
+            cotizaron, qué deben volver a contactar y qué oportunidades
+            terminaron ganando.
           </p>
           <div className={styles.heroActions}>
             <Link href="/quoteflow/demo" className={styles.primary}>
@@ -70,7 +73,8 @@ export default function QuoteFlowLanding() {
             </a>
           </div>
           <p className={styles.microcopy}>
-            Sin registro para la demo · datos ficticios · cambios guardados solo en tu navegador
+            Sin registro para la demo · datos ficticios · cambios guardados solo
+            en tu navegador
           </p>
         </div>
 
@@ -143,12 +147,16 @@ export default function QuoteFlowLanding() {
 
       <section id="para-quien" className={styles.audience}>
         <div>
-          <span className={styles.sectionLabel}>PARA NEGOCIOS DE SERVICIOS</span>
-          <h2>Si cotizas por WhatsApp, correo o Excel, queremos hablar contigo.</h2>
+          <span className={styles.sectionLabel}>
+            PARA NEGOCIOS DE SERVICIOS
+          </span>
+          <h2>
+            Si cotizas por WhatsApp, correo o Excel, queremos hablar contigo.
+          </h2>
           <p>
-            Esta primera versión se está construyendo para equipos pequeños que no
-            necesitan un CRM gigante, sino recordar a quién contactar y qué cotización
-            está en juego.
+            Esta primera versión se está construyendo para equipos pequeños que
+            no necesitan un CRM gigante, sino recordar a quién contactar y qué
+            cotización está en juego.
           </p>
         </div>
         <ul>
@@ -165,9 +173,9 @@ export default function QuoteFlowLanding() {
         <span>OBJETIVO DE ESTA BETA</span>
         <h2>Conseguir el primer negocio que diga: “sí, esto me sirve”.</h2>
         <p>
-          No estamos prometiendo automatizaciones mágicas ni reemplazar herramientas
-          empresariales. Estamos validando una solución simple para cotizar, recordar y
-          hacer seguimiento.
+          No estamos prometiendo automatizaciones mágicas ni reemplazar
+          herramientas empresariales. Estamos validando una solución simple para
+          cotizar, recordar y hacer seguimiento.
         </p>
         <div className={styles.heroActions}>
           <Link href="/quoteflow/demo" className={styles.primary}>

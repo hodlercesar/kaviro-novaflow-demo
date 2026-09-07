@@ -186,8 +186,9 @@ export default function QuoteFlowDemo() {
           ? {
               ...quote,
               status,
-              followUp:
-                ["Ganada", "Perdida"].includes(status) ? "" : quote.followUp,
+              followUp: ["Ganada", "Perdida"].includes(status)
+                ? ""
+                : quote.followUp,
             }
           : quote,
       ),
@@ -260,8 +261,8 @@ export default function QuoteFlowDemo() {
               <span className={styles.eyebrow}>HOY</span>
               <h1>Qué tienes que seguir y cuánto hay en juego.</h1>
               <p>
-                Esta demo usa datos ficticios. Agrega una cotización, cambia su estado y
-                prueba el flujo como si fuera tu negocio.
+                Esta demo usa datos ficticios. Agrega una cotización, cambia su
+                estado y prueba el flujo como si fuera tu negocio.
               </p>
             </div>
             <div className={styles.demoBadge}>Modo demo · sin cuenta</div>
@@ -400,8 +401,8 @@ export default function QuoteFlowDemo() {
               <span className={styles.eyebrow}>NUEVA OPORTUNIDAD</span>
               <h2>Registrar cotización</h2>
               <p>
-                Guarda lo mínimo necesario para que el siguiente contacto no dependa de
-                tu memoria.
+                Guarda lo mínimo necesario para que el siguiente contacto no
+                dependa de tu memoria.
               </p>
             </div>
 
@@ -509,8 +510,8 @@ export default function QuoteFlowDemo() {
               <span className={styles.eyebrow}>ESTAMOS VALIDANDO</span>
               <h2>¿Esto te ahorraría seguimientos perdidos?</h2>
               <p>
-                Si manejas cotizaciones en WhatsApp, correo o Excel, queremos escuchar
-                cómo lo haces hoy antes de agregar más funciones.
+                Si manejas cotizaciones en WhatsApp, correo o Excel, queremos
+                escuchar cómo lo haces hoy antes de agregar más funciones.
               </p>
             </div>
             <a href="mailto:empresakavirostudio@gmail.com?subject=Feedback%20QuoteFlow">
