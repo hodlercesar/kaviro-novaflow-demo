@@ -1,22 +1,30 @@
+import { siteUrl } from "../lib/site-config.mjs";
+
 export default function sitemap() {
   return [
     {
-      url: "https://kaviro-novaflow-demo.vercel.app",
+      url: siteUrl,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1,
     },
     {
-      url: "https://kaviro-novaflow-demo.vercel.app/quoteflow",
+      url: siteUrl + "/quoteflow",
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
-      url: "https://kaviro-novaflow-demo.vercel.app/contacto",
+      url: siteUrl + "/contacto",
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
+    },
+    {
+      url: siteUrl + "/privacidad",
+      lastModified: new Date(),
+      changeFrequency: "yearly",
+      priority: 0.4,
     },
     ...[
       "electricidad",
@@ -24,7 +32,7 @@ export default function sitemap() {
       "construccion",
       "servicios-tecnicos",
     ].map((slug) => ({
-      url: `https://kaviro-novaflow-demo.vercel.app/sectores/${slug}`,
+      url: siteUrl + "/sectores/" + slug,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,

@@ -1,3 +1,5 @@
+import { siteUrl } from "../lib/site-config.mjs";
+
 export default function robots() {
   return {
     rules: [
@@ -7,6 +9,6 @@ export default function robots() {
         disallow: ["/demo", "/sign-in", "/sign-up", "/api/"],
       },
     ],
-    sitemap: "https://kaviro-novaflow-demo.vercel.app/sitemap.xml",
+    sitemap: siteUrl + "/sitemap.xml",
   };
 }

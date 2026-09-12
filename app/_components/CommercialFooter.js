@@ -15,6 +15,7 @@ export default function CommercialFooter({ styles }) {
         <Link href="/quoteflow">QuoteFlow</Link>
         <Link href="/preview">NovaFlow</Link>
         <Link href="/contacto">Contacto</Link>
+        <Link href="/privacidad">Privacidad</Link>
       </nav>
       <div className={styles.credits}>
         <span>Construido por Hodler César · KAVIRO Studio</span>

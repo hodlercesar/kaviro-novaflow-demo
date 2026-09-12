@@ -1,8 +1,9 @@
 import { ClerkProvider } from "@clerk/nextjs";
+import { siteUrl } from "../lib/site-config.mjs";
 import "./globals.css";
 
 export const metadata = {
-  metadataBase: new URL("https://kaviro-novaflow-demo.vercel.app"),
+  metadataBase: new URL(siteUrl),
   title: {
     default: "KAVIRO Studio — Soluciones digitales para negocios",
     template: "%s · KAVIRO Studio",

@@ -68,9 +68,9 @@ export default async function ContactPage({ searchParams }) {
               </li>
             </ul>
             <p className={styles.asideNote}>
-              El formulario todavía no guarda información en una base de datos.
-              Al enviarlo, prepara un correo para que revises los datos antes de
-              mandarlos.
+              Tu solicitud se envía al equipo de KAVIRO para que podamos
+              responderte. El formulario no crea una cuenta ni guarda datos en
+              la base de datos del sitio.
             </p>
             <a
               href="mailto:empresakavirostudio@gmail.com"

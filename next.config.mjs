@@ -11,6 +11,9 @@ const securityHeaders = [
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   poweredByHeader: false,
+  experimental: {
+    cpus: 1,
+  },
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }];
   },

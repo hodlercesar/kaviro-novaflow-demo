@@ -1,4 +1,4 @@
-# NovaFlow
+# KAVIRO Studio / NovaFlow
 
 A conceptual revenue-operations SaaS by **KAVIRO Studio**. Built for product and engineering evaluation—not presented as client work, a commercial service, or evidence of real business results.
 
@@ -71,6 +71,13 @@ Every handler checks Clerk authentication on the server. Identity comes from `au
 
 Workspace responses are private and not shared-cacheable. SQL uses parameterized tagged templates. Record limits, allowed fields and numeric boundaries are validated server-side.
 
+The public contact form uses POST /api/contact. It validates the submitted
+fields server-side, filters a honeypot field and sends the message through the
+Resend HTTP API when RESEND_API_KEY and CONTACT_FROM_EMAIL are configured.
+CONTACT_TO_EMAIL defaults to the public KAVIRO address but should be set
+explicitly in each Vercel environment. When the provider is not configured,
+the endpoint returns an error instead of showing a false success state.
+
 ### Persistence contract
 
 Neon is canonical when available. One row in `novaflow_workspaces` belongs to one Clerk `user_id`. The browser cache is keyed by that same identity (`novaflow:workspace:v2:<userId>`); the old global demo cache is not imported. Anonymous users cannot access workspace APIs.
@@ -95,6 +102,8 @@ Before publishing, test desktop/mobile, keyboard navigation, the zero-friction p
 - Use separate Clerk development/production instances and separate Neon branches for preview/production.
 - Apply the migration before deploying. Existing tables should be inspected before any schema change.
 - Configure Clerk authorized domains, social providers and redirects for the deployment.
+- Configure NEXT_PUBLIC_SITE_URL, RESEND_API_KEY, CONTACT_FROM_EMAIL and CONTACT_TO_EMAIL for each Vercel environment. The sender domain must be verified with Resend.
+- Review /privacidad, add any organization-specific retention details, and keep analytics disabled until a consent flow is in place.
 - Development-mode Clerk branding is controlled by the Clerk instance/keys, not hidden with CSS.
 - Verify security headers, authenticated API responses and runtime logs.
 - Review changes and deploy explicitly; no production deployment is part of the review branch workflow.

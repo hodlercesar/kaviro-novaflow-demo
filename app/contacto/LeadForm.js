@@ -11,29 +11,50 @@ const sectorOptions = [
   ["servicios-tecnicos", "Servicios técnicos"],
   ["otro", "Otro negocio"],
 ];
-const sectorLabels = Object.fromEntries(sectorOptions);
 
 export default function LeadForm({ defaultSector = "" }) {
-  const [submitted, setSubmitted] = useState(false);
+  const [status, setStatus] = useState("idle");
+  const [error, setError] = useState("");
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     const form = event.currentTarget;
     const data = new FormData(form);
-    const fields = [
-      ["Nombre", data.get("name")],
-      ["Empresa", data.get("company")],
-      ["Sector", sectorLabels[data.get("sector")] || data.get("sector")],
-      ["Problema a resolver", data.get("problem")],
-      ["Email", data.get("email")],
-      ["Teléfono", data.get("phone") || "No indicado"],
-    ];
-    const body = fields
-      .map(([label, value]) => `${label}: ${value}`)
-      .join("\n");
-    const subject = "Solicitud de evaluación · KAVIRO Studio";
-    setSubmitted(true);
-    window.location.href = `mailto:empresakavirostudio@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    setStatus("sending");
+    setError("");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: data.get("name"),
+          company: data.get("company"),
+          sector: data.get("sector"),
+          email: data.get("email"),
+          problem: data.get("problem"),
+          phone: data.get("phone"),
+          website: data.get("website"),
+        }),
+      });
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(
+          result.error ||
+            "No pudimos enviar tu solicitud. Inténtalo nuevamente.",
+        );
+      }
+
+      setStatus("success");
+      form.reset();
+    } catch (submissionError) {
+      setStatus("error");
+      setError(
+        submissionError.message ||
+          "No pudimos enviar tu solicitud. Inténtalo nuevamente.",
+      );
+    }
   }
 
   return (
@@ -100,19 +121,34 @@ export default function LeadForm({ defaultSector = "" }) {
         </label>
       </div>
 
+      <div className={styles.honeypot} aria-hidden="true">
+        <label htmlFor="website">Website</label>
+        <input id="website" name="website" tabIndex="-1" autoComplete="off" />
+      </div>
+
       <div className={styles.formFooter}>
-        <button type="submit" className={styles.submit}>
-          Solicitar evaluación <Icon name="arrow" size={17} />
+        <button
+          type="submit"
+          className={styles.submit}
+          disabled={status === "sending"}
+          aria-busy={status === "sending"}
+        >
+          {status === "sending" ? "Enviando…" : "Solicitar evaluación"}
+          {status === "sending" ? null : <Icon name="arrow" size={17} />}
         </button>
         <p>
-          Por ahora se abrirá tu correo con la información lista para enviar. No
-          guardamos tus datos en este formulario.
+          Tu solicitud se envía al equipo de KAVIRO. No guardamos tus datos en
+          la base de datos de este sitio.
         </p>
       </div>
-      {submitted ? (
+      {status === "success" ? (
         <p className={styles.status} aria-live="polite">
-          Preparamos tu mensaje. Si no se abrió tu correo, escríbenos a
-          empresakavirostudio@gmail.com.
+          Solicitud enviada. Te responderemos por correo.
+        </p>
+      ) : null}
+      {status === "error" ? (
+        <p className={styles.statusError} role="alert">
+          {error}
         </p>
       ) : null}
     </form>

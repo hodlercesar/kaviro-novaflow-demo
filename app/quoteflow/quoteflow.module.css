@@ -446,6 +446,12 @@
   color: #a9c2cf;
 }
 
+.footerLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
 @media (max-width: 900px) {
   .nav > a:not(.navCta) {
     display: none;
@@ -489,7 +495,9 @@
   }
 
   .brand small {
-    display: none;
+    display: block;
+    font-size: 9px;
+    letter-spacing: 0.1em;
   }
 
   .hero {
