@@ -4,33 +4,34 @@ import "./globals.css";
 export const metadata = {
   metadataBase: new URL("https://kaviro-novaflow-demo.vercel.app"),
   title: {
-    default: "NovaFlow — Concept Revenue Operations SaaS",
-    template: "%s · NovaFlow",
+    default: "KAVIRO Studio — Soluciones digitales para negocios",
+    template: "%s · KAVIRO Studio",
   },
   description:
-    "A transparent, functional concept SaaS application designed and built by KAVIRO Studio as a technical product demonstration.",
-  applicationName: "NovaFlow",
+    "Soluciones digitales para negocios que quieren conseguir clientes, organizar procesos y automatizar tareas.",
+  applicationName: "KAVIRO Studio",
   authors: [{ name: "KAVIRO Studio" }],
   keywords: [
-    "Next.js",
-    "SaaS demo",
-    "product engineering",
-    "revenue operations",
+    "soluciones digitales para negocios",
+    "captación de clientes",
+    "sistemas para negocios",
+    "automatización de procesos",
     "KAVIRO Studio",
   ],
   openGraph: {
-    title: "NovaFlow — Functional concept SaaS by KAVIRO Studio",
+    title: "KAVIRO Studio — Soluciones digitales para negocios",
     description:
-      "Explore a responsive, authenticated revenue-operations concept with fictional evaluation data and real product interactions.",
+      "Soluciones digitales para negocios que quieren conseguir clientes, organizar procesos y automatizar tareas.",
     type: "website",
-    locale: "en_US",
+    locale: "es_CL",
     url: "/",
-    siteName: "NovaFlow",
+    siteName: "KAVIRO Studio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "NovaFlow — Functional concept SaaS",
-    description: "A transparent technical portfolio project by KAVIRO Studio.",
+    title: "KAVIRO Studio — Soluciones digitales para negocios",
+    description:
+      "Soluciones digitales para negocios que quieren conseguir clientes, organizar procesos y automatizar tareas.",
   },
 };
 

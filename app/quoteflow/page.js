@@ -192,7 +192,7 @@ export default function QuoteFlowLanding() {
 
       <footer className={styles.footer}>
         <p>QuoteFlow es un prototipo beta creado por KAVIRO Studio.</p>
-        <Link href="/">Volver a NovaFlow</Link>
+        <Link href="/">Volver a KAVIRO Studio</Link>
       </footer>
     </main>
   );

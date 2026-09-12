@@ -38,7 +38,7 @@ test("password privacy takes precedence over identifier-like field names", () =>
   assert.equal(mascotPose({ type: "text", id: "new-password-field" }), "peek");
 });
 
-test("portfolio exposes instant and persistent evaluation paths", async () => {
+test("KAVIRO commercial home exposes its message and technical demos", async () => {
   const home = await readFile(
     new URL("../app/page.js", import.meta.url),
     "utf8",
@@ -53,7 +53,10 @@ test("portfolio exposes instant and persistent evaluation paths", async () => {
   );
 
   assert.match(home, /href="\/preview"/);
-  assert.match(home, /Construido por Hodler César/);
+  assert.match(home, /KAVIRO Studio/);
+  assert.match(home, /Soluciones digitales para negocios/);
+  assert.match(home, /QuoteFlow/);
+  assert.match(home, /href="\/quoteflow\/demo"/);
   assert.match(home, /sign-in\?redirect_url=\/demo/);
   assert.match(preview, /usePreviewWorkspace/);
   assert.match(workspace, /Instant evaluation mode/);

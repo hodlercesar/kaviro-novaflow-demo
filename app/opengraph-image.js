@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "NovaFlow — Functional concept SaaS by KAVIRO Studio";
+export const alt = "KAVIRO Studio — Soluciones digitales para negocios";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -39,9 +39,9 @@ export default function OpenGraphImage() {
             background: "#7659f5",
           }}
         >
-          N
+          K
         </span>
-        NovaFlow
+        KAVIRO Studio
       </div>
       <div style={{ display: "flex", flexDirection: "column" }}>
         <span
@@ -52,22 +52,22 @@ export default function OpenGraphImage() {
             letterSpacing: 4,
           }}
         >
-          KAVIRO Studio · Technical concept demo
+          Soluciones digitales para negocios
         </span>
         <span
           style={{
             maxWidth: 980,
             marginTop: 22,
-            fontSize: 76,
+            fontSize: 68,
             lineHeight: 1.02,
-            letterSpacing: -4,
+            letterSpacing: -3,
             fontWeight: 750,
           }}
         >
-          Revenue operations, without the chaos.
+          Consigue clientes. Organiza procesos. Automatiza tareas.
         </span>
         <span style={{ marginTop: 28, color: "#a4adbf", fontSize: 27 }}>
-          Authenticated · Responsive · Fictional evaluation data
+          Web que convierte · Sistemas para negocios · Automatización
         </span>
       </div>
     </div>,
