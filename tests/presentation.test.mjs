@@ -58,6 +58,43 @@ test("KAVIRO commercial home exposes its message and technical demos", async () 
   assert.match(home, /QuoteFlow/);
   assert.match(home, /href="\/quoteflow\/demo"/);
   assert.match(home, /sign-in\?redirect_url=\/demo/);
+  assert.match(home, /href="\/contacto"/);
+  assert.match(home, /href=\{`\/sectores\/\$\{slug\}`\}/);
   assert.match(preview, /usePreviewWorkspace/);
   assert.match(workspace, /Instant evaluation mode/);
+});
+
+test("commercial lead generation routes are present", async () => {
+  const files = [
+    "../app/contacto/page.js",
+    "../app/contacto/LeadForm.js",
+    "../app/sectores/page.js",
+    "../app/sectores/[slug]/page.js",
+    "../app/_content/industries.js",
+  ];
+
+  for (const file of files) {
+    const source = await readFile(new URL(file, import.meta.url), "utf8");
+    assert.ok(source.length > 0, `${file} should contain the route`);
+  }
+
+  const contact = await readFile(
+    new URL("../app/contacto/LeadForm.js", import.meta.url),
+    "utf8",
+  );
+  assert.match(contact, /Solicitar evaluación/);
+  assert.match(contact, /No\s+guardamos tus datos/);
+
+  const industries = await readFile(
+    new URL("../app/_content/industries.js", import.meta.url),
+    "utf8",
+  );
+  for (const slug of [
+    "electricidad",
+    "climatizacion",
+    "construccion",
+    "servicios-tecnicos",
+  ]) {
+    assert.match(industries, new RegExp(`slug: "${slug}"`));
+  }
 });

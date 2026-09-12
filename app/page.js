@@ -5,8 +5,6 @@ import ProductPreview from "./_components/ProductPreview";
 import Icon from "./demo/components/Icon";
 import styles from "./business.module.css";
 
-const contactUrl =
-  "mailto:empresakavirostudio@gmail.com?subject=Quiero%20mejorar%20un%20proceso%20con%20KAVIRO";
 const problems = [
   [
     "users",
@@ -69,6 +67,12 @@ const services = [
     note: "De tareas sueltas a un proceso",
   },
 ];
+const sectors = [
+  ["Electricidad", "electricidad"],
+  ["Climatización", "climatizacion"],
+  ["Construcción", "construccion"],
+  ["Servicios técnicos", "servicios-tecnicos"],
+];
 
 export default function Home() {
   return (
@@ -85,9 +89,9 @@ export default function Home() {
           <a href="#proyectos">Proyectos</a>
           <a href="#sectores">Sectores</a>
         </nav>
-        <a href="#contacto" className={styles.navContact}>
+        <Link href="/contacto" className={styles.navContact}>
           Hablemos <Icon name="arrow" size={16} />
-        </a>
+        </Link>
       </header>
       <main id="main">
         <section
@@ -108,10 +112,10 @@ export default function Home() {
               organizar procesos y automatizar tareas.
             </p>
             <div className={styles.actions}>
-              <a href={contactUrl} className={styles.primary}>
+              <Link href="/contacto" className={styles.primary}>
                 Cuéntanos qué proceso quieres mejorar{" "}
                 <Icon name="arrow" size={18} />
-              </a>
+              </Link>
               <a href="#proyectos" className={styles.textLink}>
                 Explorar nuestras demos <Icon name="chevron" size={15} />
               </a>
@@ -366,18 +370,19 @@ export default function Home() {
             </p>
           </div>
           <ul>
-            {[
-              "Electricidad",
-              "Climatización",
-              "Construcción",
-              "Servicios técnicos",
-              "Pequeñas empresas",
-            ].map((sector) => (
+            {sectors.map(([sector, slug]) => (
               <li key={sector}>
-                {sector}
-                <Icon name="arrow" size={18} />
+                <Link href={`/sectores/${slug}`}>
+                  {sector}
+                  <Icon name="arrow" size={18} />
+                </Link>
               </li>
             ))}
+            <li>
+              <Link href="/sectores">
+                Pequeñas empresas <Icon name="arrow" size={18} />
+              </Link>
+            </li>
           </ul>
         </section>
         <section
@@ -396,10 +401,10 @@ export default function Home() {
             Cuéntanos cómo trabajas hoy y qué te gustaría resolver. Definimos
             contigo una solución y un alcance claro.
           </p>
-          <a href={contactUrl} className={styles.primary}>
+          <Link href="/contacto" className={styles.primary}>
             Cuéntanos qué proceso quieres mejorar{" "}
             <Icon name="arrow" size={18} />
-          </a>
+          </Link>
           <a
             href="mailto:empresakavirostudio@gmail.com"
             className={styles.email}
@@ -419,6 +424,7 @@ export default function Home() {
           <a href="#servicios">Servicios</a>
           <Link href="/quoteflow">QuoteFlow</Link>
           <Link href="/preview">NovaFlow</Link>
+          <Link href="/contacto">Contacto</Link>
           <Link href="/sign-in">Iniciar sesión</Link>
         </nav>
         <div id="creator" className={styles.credits}>

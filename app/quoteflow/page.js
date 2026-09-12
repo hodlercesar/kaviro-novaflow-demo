@@ -3,24 +3,24 @@ import styles from "./quoteflow.module.css";
 
 const features = [
   {
-    title: "Cotizaciones bajo control",
-    text: "Guarda cliente, monto, estado y próxima acción en un solo lugar.",
+    title: "Registra lo esencial",
+    text: "Guarda cliente, servicio, monto y contexto sin llenar un CRM complejo.",
   },
   {
-    title: "Seguimiento visible",
-    text: "Detecta qué cotizaciones necesitan contacto antes de que se enfríen.",
+    title: "Define el siguiente contacto",
+    text: "Cada propuesta puede tener un estado y una próxima fecha visible para el equipo.",
   },
   {
-    title: "WhatsApp a un toque",
-    text: "Abre la conversación del cliente desde la misma ficha de seguimiento.",
+    title: "Retoma la conversación",
+    text: "Abre WhatsApp desde la misma ficha cuando llegue el momento de volver a contactar.",
   },
 ];
 
 const audiences = [
-  "Electricistas e instaladores",
-  "Técnicos y mantención",
-  "Talleres y servicios automotrices",
-  "Freelancers y pequeños equipos",
+  "Electricidad y climatización",
+  "Construcción y mantención",
+  "Servicios técnicos",
+  "Pequeñas empresas de servicios",
 ];
 
 export const metadata = {
@@ -53,28 +53,25 @@ export default function QuoteFlowLanding() {
       <section className={styles.hero}>
         <div className={styles.heroCopy}>
           <span className={styles.badge}>
-            BETA PRIVADA · PROTOTIPO EN VALIDACIÓN
+            DEMO DE PRODUCTO · DATOS FICTICIOS
           </span>
           <h1>No pierdas cotizaciones por falta de seguimiento.</h1>
           <p>
             QuoteFlow ayuda a pequeños negocios de servicios a saber qué
-            cotizaron, qué deben volver a contactar y qué oportunidades
-            terminaron ganando.
+            cotizaron, qué deben volver a contactar y qué oportunidades siguen
+            abiertas.
           </p>
           <div className={styles.heroActions}>
             <Link href="/quoteflow/demo" className={styles.primary}>
               Probar demo interactiva
             </Link>
-            <a
-              href="mailto:empresakavirostudio@gmail.com?subject=Quiero%20probar%20QuoteFlow"
-              className={styles.secondary}
-            >
-              Quiero ser tester
-            </a>
+            <Link href="/contacto" className={styles.secondary}>
+              Solicitar evaluación
+            </Link>
           </div>
           <p className={styles.microcopy}>
-            Sin registro para la demo · datos ficticios · cambios guardados solo
-            en tu navegador
+            Sin registro para la demo · cambios guardados solo en tu navegador ·
+            herramienta creada por KAVIRO
           </p>
         </div>
 
@@ -84,7 +81,7 @@ export default function QuoteFlowLanding() {
               <span className={styles.previewEyebrow}>Resumen</span>
               <strong>Septiembre</strong>
             </div>
-            <span className={styles.liveDot}>Demo</span>
+            <span className={styles.liveDot}>Datos de ejemplo</span>
           </div>
           <div className={styles.metrics}>
             <article>
@@ -131,8 +128,12 @@ export default function QuoteFlowLanding() {
 
       <section id="como-funciona" className={styles.section}>
         <div className={styles.sectionHeading}>
-          <span>MENOS CRM. MÁS SEGUIMIENTO.</span>
-          <h2>Lo esencial para no dejar dinero olvidado en WhatsApp.</h2>
+          <span>UN FLUJO BREVE Y VISIBLE</span>
+          <h2>Del presupuesto enviado al próximo contacto.</h2>
+          <p>
+            QuoteFlow ordena el momento que suele quedar pendiente: qué se
+            cotizó, en qué estado está y qué paso sigue.
+          </p>
         </div>
         <div className={styles.featureGrid}>
           {features.map((feature, index) => (
@@ -148,15 +149,15 @@ export default function QuoteFlowLanding() {
       <section id="para-quien" className={styles.audience}>
         <div>
           <span className={styles.sectionLabel}>
-            PARA NEGOCIOS DE SERVICIOS
+            PARA QUIENES TRABAJAN POR PROYECTO O SERVICIO
           </span>
           <h2>
             Si cotizas por WhatsApp, correo o Excel, queremos hablar contigo.
           </h2>
           <p>
-            Esta primera versión se está construyendo para equipos pequeños que
-            no necesitan un CRM gigante, sino recordar a quién contactar y qué
-            cotización está en juego.
+            QuoteFlow está pensado como un punto de partida para equipos que
+            necesitan recordar a quién contactar y qué cotización está en juego
+            sin sumar una plataforma pesada.
           </p>
         </div>
         <ul>
@@ -170,23 +171,20 @@ export default function QuoteFlowLanding() {
       </section>
 
       <section className={styles.validation}>
-        <span>OBJETIVO DE ESTA BETA</span>
-        <h2>Conseguir el primer negocio que diga: “sí, esto me sirve”.</h2>
+        <span>UNA DEMOSTRACIÓN DE KAVIRO</span>
+        <h2>Prueba el flujo con datos ficticios y cuéntanos qué mejorarías.</h2>
         <p>
-          No estamos prometiendo automatizaciones mágicas ni reemplazar
-          herramientas empresariales. Estamos validando una solución simple para
-          cotizar, recordar y hacer seguimiento.
+          QuoteFlow no es un caso de éxito ni una herramienta desplegada para
+          clientes reales. Es una demostración propia para explorar una forma
+          más clara de cotizar, recordar y hacer seguimiento.
         </p>
         <div className={styles.heroActions}>
           <Link href="/quoteflow/demo" className={styles.primary}>
             Abrir QuoteFlow
           </Link>
-          <a
-            href="mailto:empresakavirostudio@gmail.com?subject=Feedback%20QuoteFlow"
-            className={styles.secondary}
-          >
-            Enviar feedback
-          </a>
+          <Link href="/contacto" className={styles.secondary}>
+            Cuéntanos tu proceso
+          </Link>
         </div>
       </section>
 

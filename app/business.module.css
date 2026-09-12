@@ -578,10 +578,18 @@
   font-size: 18px;
   color: #c9c2d3;
 }
+.sectors li > a {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  color: inherit;
+}
 .sectors li:first-child {
   padding-top: 0;
 }
-.sectors li > svg {
+.sectors li > a > svg {
   color: #9c86ba;
 }
 .contact {

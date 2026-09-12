@@ -8,7 +8,8 @@ const demo = fs.readFileSync("app/quoteflow/demo/QuoteFlowDemo.js", "utf8");
 test("QuoteFlow exposes a clear validation landing and instant demo", () => {
   assert.match(landing, /No pierdas cotizaciones por falta de seguimiento/);
   assert.match(landing, /\/quoteflow\/demo/);
-  assert.match(landing, /Quiero ser tester/);
+  assert.match(landing, /Solicitar evaluación/);
+  assert.match(landing, /href="\/contacto"/);
 });
 
 test("QuoteFlow demo covers the core quote follow-up workflow", () => {
