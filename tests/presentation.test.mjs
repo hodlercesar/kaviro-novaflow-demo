@@ -98,3 +98,25 @@ test("commercial lead generation routes are present", async () => {
     assert.match(industries, new RegExp(`slug: "${slug}"`));
   }
 });
+
+test("the KAVIRO process page explains the commercial journey", async () => {
+  const processPage = await readFile(
+    new URL("../app/como-trabajamos/page.js", import.meta.url),
+    "utf8",
+  );
+  const sitemap = await readFile(
+    new URL("../app/sitemap.js", import.meta.url),
+    "utf8",
+  );
+
+  assert.match(
+    processPage,
+    /Transformamos problemas de negocio en soluciones digitales/,
+  );
+  assert.match(processPage, /Nuestro proceso/);
+  assert.match(processPage, /Qué podemos construir/);
+  assert.match(processPage, /Trabajamos con negocios de servicios/);
+  assert.match(processPage, /href="\/contacto"/);
+  assert.match(processPage, /href=\{`\/sectores\/\$\{slug\}`\}/);
+  assert.match(sitemap, /como-trabajamos/);
+});

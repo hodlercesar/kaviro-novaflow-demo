@@ -422,6 +422,7 @@ export default function Home() {
         </div>
         <nav aria-label="Enlaces del pie de página">
           <a href="#servicios">Servicios</a>
+          <Link href="/como-trabajamos">Cómo trabajamos</Link>
           <Link href="/quoteflow">QuoteFlow</Link>
           <Link href="/preview">NovaFlow</Link>
           <Link href="/contacto">Contacto</Link>

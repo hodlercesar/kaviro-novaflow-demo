@@ -21,6 +21,12 @@ export default function sitemap() {
       priority: 0.8,
     },
     {
+      url: siteUrl + "/como-trabajamos",
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: siteUrl + "/privacidad",
       lastModified: new Date(),
       changeFrequency: "yearly",

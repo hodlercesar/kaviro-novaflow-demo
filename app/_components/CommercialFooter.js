@@ -12,6 +12,7 @@ export default function CommercialFooter({ styles }) {
       </div>
       <nav aria-label="Enlaces del pie de página">
         <Link href="/#servicios">Servicios</Link>
+        <Link href="/como-trabajamos">Cómo trabajamos</Link>
         <Link href="/quoteflow">QuoteFlow</Link>
         <Link href="/preview">NovaFlow</Link>
         <Link href="/contacto">Contacto</Link>

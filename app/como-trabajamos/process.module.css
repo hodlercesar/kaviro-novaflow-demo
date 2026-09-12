@@ -1,0 +1,132 @@
+.processGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.processCard {
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  border: 1px solid #ffffff14;
+  border-radius: 12px;
+  background: linear-gradient(140deg, #b9a6ff06, transparent 70%), #101116;
+}
+
+.processNumber {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid #b9a6ff26;
+  border-radius: 10px;
+  background: #b9a6ff0c;
+  color: #b9a6ff;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.processCard h3 {
+  margin: 25px 0 10px;
+  color: #edeef4;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.35px;
+}
+
+.processCard p {
+  margin: 0;
+  color: #b1adbf;
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.capabilityList {
+  display: grid;
+  gap: 11px;
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.capabilityList li {
+  display: flex;
+  gap: 9px;
+  align-items: flex-start;
+  color: #d3ccdc;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.capabilityList svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: #b9a6ff;
+}
+
+.sectorLinks {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.sectorLink {
+  min-height: 74px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 19px;
+  border: 1px solid #ffffff14;
+  border-radius: 10px;
+  background: #101116;
+  color: #d7d0e1;
+  font-size: 14px;
+  font-weight: 550;
+  transition:
+    border-color 0.2s,
+    transform 0.2s;
+}
+
+.sectorLink svg {
+  flex-shrink: 0;
+  color: #b9a6ff;
+}
+
+.sectorLink:hover {
+  border-color: #b9a6ff66;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 900px) {
+  .processGrid,
+  .sectorLinks {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .processGrid,
+  .sectorLinks {
+    grid-template-columns: 1fr;
+  }
+
+  .processCard {
+    min-height: 0;
+    padding: 23px;
+  }
+
+  .sectorLink {
+    min-height: 64px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sectorLink {
+    transition: none;
+  }
+}
